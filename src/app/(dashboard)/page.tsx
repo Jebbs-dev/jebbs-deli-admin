@@ -1,14 +1,16 @@
-interface DashboardPageProps {
-  
-}
- 
+import SalesData from "@/components/dashboard/sales-data";
+import SummaryData from "@/components/dashboard/summary-data";
+
+interface DashboardPageProps {}
+
 const DashboardPage: React.FC<DashboardPageProps> = () => {
-  return ( 
-    <div>
-      <h3 className="font-semibold text-2xl">Hi, Admin User</h3>
-      <p className="text-sm text-muted-foreground">Welcome back to your Dashboard</p>
-    </div>
-   );
-}
- 
+  return (
+
+      <div className="flex flex-col space-y-5 py-6 w-full">
+        <SummaryData />
+        <SalesData/>
+      </div>
+  );
+};
+
 export default DashboardPage;
