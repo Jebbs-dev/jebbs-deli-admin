@@ -109,7 +109,7 @@ export const options = {
   responsive: true,
   interaction: {
     intersect: true,
-    mode: "index" as "index",
+    mode: "index",
   },
   plugins: {
     legend: {
@@ -120,7 +120,10 @@ export const options = {
     x: {
       title: {
         display: true,
-        text: "Time (Hour)",
+        text: 'Time (Daily)',
+        font: {
+          weight: "bold" as "bold",
+        }
       },
       ticks: {
         color: "#64748b",
@@ -134,6 +137,9 @@ export const options = {
       title: {
         display: true,
         text: "Sales",
+        font: {
+          weight: "bold" as "bold",
+        }
       },
       ticks: {
         color: "#64748b",
@@ -145,12 +151,8 @@ export const options = {
   },
 };
 
-const sales = {
-  daily: dailySalesData,
-  weekly: weeklySalesData,
-  monthly: monthlySalesData,
-  yearly: yearlySalesData,
-}
+
+
 
 // const chartToShow = ;
 
@@ -181,6 +183,11 @@ export function selectSalesLabel(salesLabel: [string, number][]){
 export function selectSalesData(salesData: [string, number][]) {
   let returnedData =  salesData.map((data) => data[1]);
   return data.datasets[0].data = returnedData;
+}
+
+export function selectTImeLabel(salesTime: string){
+  let returnedTime = `Time (${salesTime})`;
+  return options.scales.x.title.text = returnedTime;
 }
 
 
