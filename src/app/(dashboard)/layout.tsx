@@ -15,7 +15,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         <SideNav />
       </div>
       <div className="flex-grow md:w-full md:overflow-y-auto md:p-12">
-      <div className="hidden md:block">
+        <div className="hidden md:block md:mb-3">
           <DashboardMenu />
         </div>
         {children}
