@@ -8,7 +8,7 @@ const SideNav = () => {
   const sizeVariants = ["small", "large"]
 
   return (
-    <div className="flex flex-col md:h-full shadow-sm bg-white text-muted-foreground">
+    <div className="flex flex-col md:h-full shadow-md bg-white text-muted-foreground ">
       <Link className="hidden md:flex items-start px-8 py-10" href="/">
         <p className="text-[#2463EB]">deli</p>
       </Link>

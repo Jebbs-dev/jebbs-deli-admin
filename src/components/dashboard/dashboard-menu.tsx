@@ -16,7 +16,7 @@ const DashboardMenu: React.FC<DashboardMenuProps> = () => {
     <div className="flex items-center justify-between">
       <div>
         <h3 className="font-semibold text-2xl">Hi, Admin User</h3>
-        <p className="hidden md:block md:text-sm md:text-muted-foreground">
+        <p className="hidden md:block md:text-md md:text-muted-foreground">
           Welcome back to your Dashboard
         </p>
       </div>
