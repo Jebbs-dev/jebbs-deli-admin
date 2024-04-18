@@ -61,7 +61,7 @@ const NavLinks = () => {
 </div> */}
       <div
         id="slider"
-        className="flex p-3 space-x-3 w-full auto-rows-fr overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
+        className="flex p-3 space-x-3 w-full auto-rows-fr overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide md:hidden"
       >
         {links.map((link) => {
           const LinkIcon = link.icon;
