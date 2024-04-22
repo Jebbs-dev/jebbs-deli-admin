@@ -29,7 +29,7 @@ const SalesData = () => {
         <Tabs className="p-3" defaultValue="dailyChart">
           <div className="flex flex-row space-x-56">
             <div>
-              <TabsList className="flex w-32 relative left-[20%] h-8 mb-4">
+              <TabsList className="flex w-[135px] relative left-[20%] h-8 mb-4">
                 <TabsTrigger
                   className="px-2 py-1 text-xs font-medium"
                   value="dailyChart"
