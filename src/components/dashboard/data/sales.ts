@@ -1,5 +1,3 @@
-import { ChartArea } from "chart.js/auto";
-import SalesData from "../sales-data";
 
 export interface SalesDataProps {
   salesData: [string, number][];
