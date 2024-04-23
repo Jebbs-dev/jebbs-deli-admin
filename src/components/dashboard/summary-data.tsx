@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { summaryData } from "./data/summary";
+import { summaryData } from "./data/data-summary";
 
 const SummaryData = () => {
   return (
@@ -7,7 +7,7 @@ const SummaryData = () => {
       <div className="grid grid-cols-2 gap-2 mx-auto md:mx-0 md:grid-cols-4 md:gap-4 md:w-full">
         {summaryData.map((data) => (
           <div
-            className="flex md:w-full flex-col space-y-2 bg-white shadow-md p-3 rounded-md"
+            className="flex md:w-full flex-col space-y-2 bg-white border p-3 rounded-md"
             key={data.item}
           >
             <div className="flex flex-row space-x-4 justify-between items-center ]">
