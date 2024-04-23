@@ -20,7 +20,7 @@ const DashboardMenu: React.FC<DashboardMenuProps> = () => {
           Welcome back to your Dashboard
         </p>
       </div>
-      <div className="hidden md:flex items-center">
+      <div className="hidden md:flex items-center relative">
         <Search className="absolute ml-2 text-muted-foreground" size={20} />
         <Input
           type="text"
