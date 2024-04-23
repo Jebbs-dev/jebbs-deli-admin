@@ -1,20 +1,20 @@
-import { Order } from "@/components/dashboard/data/orders";
-import { columns } from "@/components/dashboard/components/columns";
-import { data } from "@/components/dashboard/data/sales";
+import RecentOrders from "@/components/dashboard/recent-orders";
 import SalesData from "@/components/dashboard/sales-chart";
 import SummaryData from "@/components/dashboard/summary-data";
-import { DataTable } from "@/components/ui/data-table";
-import { orders } from "@/components/dashboard/data/orders";
 
+import TopProducts from "@/components/dashboard/top-products";
 
 const DashboardPage = () => {
   return (
-
-      <div className="flex flex-col space-y-7 py-6 w-full">
-        <SummaryData />
-        <SalesData/>
-        <DataTable columns={columns} data={orders}/>
+    <div className="flex flex-col space-y-7 py-6 w-full">
+      <SummaryData />
+      <div className="grid grid-cols-2 gap-4">
+        <SalesData />
+        <TopProducts/>
       </div>
+      <RecentOrders/>
+      
+    </div>
   );
 };
 
