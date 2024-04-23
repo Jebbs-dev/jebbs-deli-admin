@@ -1,4 +1,4 @@
-import { Order } from "./data/orders";
+import { Order } from "./data/recent-orders";
 
 interface GetProductsProps {
   data: Order;
