@@ -8,10 +8,10 @@ import {
   selectSalesLabel,
   selectSalesData,
   selectTImeLabel,
-} from "./data/sales";
+} from "./data/dummy-sales";
 
 import { Bar, Line } from "react-chartjs-2";
-import { data, options } from "./data/sales";
+import { data, options } from "./data/dummy-sales";
 import { Chart, registerables } from "chart.js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart3, LineChart } from "lucide-react";
@@ -25,7 +25,8 @@ const SalesData = () => {
 
   return (
     <>
-      <div className="w-[500px] relative bg-white shadow-md p-3 rounded-md">
+      <div className="w-full relative bg-white border p-3 rounded-md">
+        <h1 className="text-xl font-semibold px-10">Sales Data</h1>
         <Tabs className="p-3" defaultValue="dailyChart">
           <div className="flex flex-row space-x-56">
             <div>
