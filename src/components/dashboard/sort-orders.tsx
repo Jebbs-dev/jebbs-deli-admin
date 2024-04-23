@@ -1,4 +1,4 @@
-import { Order } from "./data/orders";
+import { Order } from "./data/recent-orders";
 
 interface SortOrdersStatusProps {
   data: Order;
@@ -8,7 +8,7 @@ const SortOrdersStatus: React.FC<SortOrdersStatusProps> = ({ data }) => {
   return (
     <div
       className={`
-      px-3 py-1 flex flex-row space-x-3 items-center rounded-sm
+      px-3 flex flex-row space-x-3 items-center rounded-sm
       ${
         data.status === "Pending payment"
           ? "bg-yellow-100 text-yellow-700 text-opacity-90"
