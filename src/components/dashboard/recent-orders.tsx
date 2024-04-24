@@ -13,7 +13,7 @@ import { columns as recentOrderColumns } from "@/components/dashboard/components
 
 const RecentOrders = () => {
   return (
-    <div className="px-10 py-4 border rounded-md bg-white">
+    <div className="mx-3 px-3 md:px-10 py-4 border rounded-md bg-white">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-semibold">Recent Orders</h1>
           <Select>

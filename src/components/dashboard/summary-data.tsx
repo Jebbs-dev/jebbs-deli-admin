@@ -4,7 +4,7 @@ import { summaryData } from "./data/data-summary";
 const SummaryData = () => {
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 mx-auto md:mx-0 md:grid-cols-4 md:gap-4 md:w-full">
+      <div className="grid grid-cols-2 gap-2 mx-3 md:mx-0 md:grid-cols-4 md:gap-4 md:w-full">
         {summaryData.map((data) => (
           <div
             className="flex md:w-full flex-col space-y-2 bg-white border p-3 rounded-md"

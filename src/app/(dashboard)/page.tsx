@@ -8,7 +8,7 @@ const DashboardPage = () => {
   return (
     <div className="flex flex-col space-y-7 py-6 w-full">
       <SummaryData />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-2 mx-3 md:mx-0 md:grid-cols-2 md:gap-4">
         <SalesData />
         <TopProducts/>
       </div>

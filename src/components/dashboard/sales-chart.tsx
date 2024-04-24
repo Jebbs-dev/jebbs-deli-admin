@@ -22,15 +22,17 @@ Chart.register(...registerables);
 const SalesData = () => {
   const [chartTab, setChartTab] = useState("dailyChart");
   const [selectLine, setSelectLine] = useState(false);
+  let lineChart;
+  let barChart = "";
 
   return (
     <>
-      <div className="w-full relative bg-white border p-3 rounded-md">
-        <h1 className="text-xl font-semibold px-10">Sales Data</h1>
+      <div className="w-full md:h-[350px] relative bg-white border p-2 md:p-3 rounded-md">
+        <h1 className="text-xl font-semibold px-3 md:px-10">Sales Data</h1>
         <Tabs className="p-3" defaultValue="dailyChart">
-          <div className="flex flex-row space-x-56">
+          <div className="flex flex-row justify-between">
             <div>
-              <TabsList className="flex w-[135px] relative left-[20%] h-8 mb-4">
+              <TabsList className="flex w-[135px] relative md:left-[20%] h-8 mb-4">
                 <TabsTrigger
                   className="px-2 py-1 text-xs font-medium"
                   value="dailyChart"
@@ -86,14 +88,20 @@ const SalesData = () => {
                 <TabsTrigger
                   className="px-2 py-1"
                   value={chartTab}
-                  onClick={() => setSelectLine(true)}
+                  onClick={() => {
+                    setSelectLine(true)
+                    lineChart = chartTab;
+                  }}
                 >
                   <LineChart className="w-4 h-4" />
                 </TabsTrigger>
                 <TabsTrigger
                   className="px-2 py-1"
-                  value={chartTab}
-                  onClick={() => setSelectLine(false)}
+                  onClick={() => {
+                    setSelectLine(false)
+                    barChart = chartTab;
+                  }}
+                  value={barChart}
                 >
                   <BarChart3 className="w-4 h-4" />
                 </TabsTrigger>
