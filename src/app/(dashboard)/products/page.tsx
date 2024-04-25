@@ -1,7 +1,12 @@
+import ProductList from "@/components/products/product-list";
+
  
 const ProductsPage = () => {
   return ( 
-    <p>Products Page</p>
+    <div className="flex flex-col space-y-7 py-6 w-full" >
+      <ProductList/>
+
+    </div>
    );
 }
  
