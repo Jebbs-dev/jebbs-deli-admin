@@ -1,5 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
-// import { data } from "./sales";
+
 
 export type Order = {
   id: string | number;
