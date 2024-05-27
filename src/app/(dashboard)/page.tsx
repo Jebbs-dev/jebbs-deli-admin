@@ -1,8 +1,8 @@
-import RecentOrders from "@/components/dashboard/recent-orders";
-import SalesData from "@/components/dashboard/sales-chart";
-import SummaryData from "@/components/dashboard/summary-data";
+import RecentOrders from "@/modules/dashboard/components/recent-orders";
+import SalesData from "@/modules/dashboard/components/sales-chart";
+import SummaryData from "@/modules/dashboard/components/summary-data";
 
-import TopProducts from "@/components/dashboard/top-products";
+import TopProducts from "@/modules/dashboard/components/top-products";
 
 const DashboardPage = () => {
   return (
