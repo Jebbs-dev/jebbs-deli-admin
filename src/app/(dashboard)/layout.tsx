@@ -1,4 +1,4 @@
-import DashboardMenu from "@/components/dashboard/dashboard-menu";
+import DashboardMenu from "@/modules/dashboard/components/dashboard-menu";
 import SideNav from "@/components/side-nav";
 
 interface DashboardLayoutProps {
