@@ -20,17 +20,6 @@ const links = [
 ];
 
 const NavLinks = () => {
-  let slider;
-  // const slideLeft = () => {
-  //   slider = document.getElementById("slider");
-  //   slider.scrollLeft = slider.scrollLeft - 1000;
-  // };
-
-  // const slideRight = () => {
-  //   slider = document.getElementById("slider");
-  //   slider.scrollLeft = slider.scrollLeft + 1000;
-  // };
-
   const pathname = usePathname();
 
   return (
@@ -56,9 +45,7 @@ const NavLinks = () => {
           </Link>
         );
       })}
-{/* <div cl>
 
-</div> */}
       <div
         id="slider"
         className="flex p-3 space-x-3 w-full auto-rows-fr overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide md:hidden"
@@ -72,8 +59,7 @@ const NavLinks = () => {
               className={clsx(
                 "h-40 flex justify-center items-center rounded-md text-muted-foreground font-medium border border-[#2463EB] hover:bg-blue-500 hover:text-white md:hidden",
                 {
-                  "text-white bg-[#2463EB] font-medium":
-                    pathname === link.href,
+                  "text-white bg-[#2463EB] font-medium": pathname === link.href,
                 }
               )}
             >
