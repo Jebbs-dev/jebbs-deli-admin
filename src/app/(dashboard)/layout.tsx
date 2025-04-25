@@ -7,15 +7,15 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden bg-[#f7f8fa]">
-      <div className="flex-none w-full md:w-48">
-        <div className="flex-grow p-6 md:hidden">
+    <div className="flex w-full min-h-screen flex-row bg-primary/5">
+      <div className="relative flex-none w-12 md:w-52 lg:w-64">
+        {/* <div className="p-6 md:hidden">
           <DashboardMenu />
-        </div>
+        </div> */}
         <SideNav />
       </div>
-      <div className="flex-grow md:w-full md:overflow-y-auto md:p-12">
-        <div className="hidden md:block md:mb-3">
+      <div className="flex-1 overflow-y-auto pt-7 md:p-10 lg:p-12">
+        <div className="mb-3">
           <DashboardMenu />
         </div>
         {children}
