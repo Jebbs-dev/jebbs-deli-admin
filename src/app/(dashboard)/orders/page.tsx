@@ -1,7 +1,9 @@
+import RecentOrders from "@/modules/dashboard/components/recent-orders";
+
  
 const OrdersPage = () => {
   return ( 
-    <p>Orders Page</p>
+    <RecentOrders/>
    );
 }
  
