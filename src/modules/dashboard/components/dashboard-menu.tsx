@@ -1,3 +1,5 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Bell, LogOut, Search, Settings, User } from "lucide-react";
@@ -8,46 +10,50 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import useAuthStore from "@/state-store/auth";
+import useUserRole from "@/hooks/useUserRole";
 
 const DashboardMenu = () => {
+  const { user, vendor } = useAuthStore();
+
+  const userType = useUserRole();
+
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between px-3 md:p-0">
       <div>
-        <h3 className="font-semibold text-2xl">Hi, Admin User</h3>
-        <p className="hidden md:block md:text-md md:text-muted-foreground">
+        <h3 className="font-semibold text-xl md:text-2xl">
+          Hi, {userType === "IS_VENDOR" ? vendor?.name : user?.name}
+        </h3>
+        <p className="hidden md:block text-sm md:text-md md:text-muted-foreground">
           Welcome back to your Dashboard
         </p>
       </div>
-      <div className="hidden md:flex items-center relative">
-        <Search className="absolute ml-2 text-muted-foreground" size={20} />
+      <div className="hidden xl:flex items-center relative">
+        <Search className="absolute ml-2 text-primary" size={20} />
         <Input
           type="text"
-          className="pl-10 md:w-80"
+          className="pl-10 md:w-80 border-primary"
           placeholder="Search for meals..."
         />
       </div>
-      <div className="flex space-x-3">
+      <div className="flex space-x-1 md:space-x-3">
+        <ModeToggle />
+
         <Button
-          className="hidden md:flex shadow-sm rounded-full h-10 w-10 items-center justify-around"
+          className="flex rounded-full shadow-sm border-primary h-7 w-7 md:h-10 md:w-10 items-center justify-around"
           variant="outline"
           size="icon"
         >
-          <Settings size={20} className="text-muted-foreground" />
+          <Bell size={20} className="text-primary" />
         </Button>
-        <Button
-          className="flex rounded-full shadow-sm h-10 w-10 items-center justify-around"
-          variant="outline"
-          size="icon"
-        >
-          <Bell size={20} className="text-muted-foreground" />
-        </Button>
-        <span className="border-[1px] border-muted-foreground m-1"></span>
+        <span className="border-[1px] border-primary m-1"></span>
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex rounded-full h-10 w-10 items-center justify-around">
+          <DropdownMenuTrigger className="flex rounded-full items-center justify-around">
             <Image
               src="/ai-avatar.webp"
               alt="User avatar"
-              className="h-10 w-10 rounded-full"
+              className="h-7 w-7 md:h-10 md:w-10 rounded-full object-cover"
               width={20}
               height={20}
             />
