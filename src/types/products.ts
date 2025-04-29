@@ -1,4 +1,5 @@
 import { Store } from "./store";
+import { User } from "./user";
 
 export type Product = {
   id: string;
@@ -17,3 +18,19 @@ export type Product = {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export type Order = {
+  id: string;
+  userId: string;
+  storeId: string;
+  serviceFee: number;
+  deliveryFee: number;
+  subTotal: number;
+  totalPrice: number;
+  vendorAddress: string;
+  customerAddress: string;
+  status: string;
+  createdAt: string;
+  user?: User;
+  store?: Store;
+};
