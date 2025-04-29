@@ -13,6 +13,7 @@ export interface Customer extends User  {
   avatar: string,
   createdAt: string,
   updatedAt: string,
+  store?: Store;
 }
 
 export interface Vendor extends User {
