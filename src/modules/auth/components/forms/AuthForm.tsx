@@ -21,6 +21,7 @@ import { useCreateVendor } from "../../mutations/register-vendor";
 import { FaSpinner } from "react-icons/fa";
 import { useLoginVendor } from "../../mutations/login-vendor";
 import { usePathname } from "next/navigation";
+import { useCreateAdmin } from "../../mutations/register-admin";
 
 interface AuthFormProps {
   variant: string;
@@ -47,7 +48,8 @@ const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
     useLoginVendor();
   const { mutateAsync: registerVendor, isPending: isLoading } =
     useCreateVendor();
-  
+  const { mutateAsync: registerAdmin, isPending: isAdminPending } =
+    useCreateAdmin();
 
   const formSchema = z.object({
     name: z
@@ -117,16 +119,30 @@ const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
         return;
       }
 
-      await registerVendor({
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      });
+      if (isVendorLogin) {
+        await registerVendor({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        });
 
-      toast({
-        title: "Success",
-        description: "Successfully Created Vendor Account!",
-      });
+        toast({
+          title: "Success",
+          description: "Successfully Created Vendor Account!",
+        });
+      } else {
+        await registerAdmin({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        });
+
+        toast({
+          title: "Success",
+          description: "Successfully Created Admin Account!",
+        });
+
+      }
     } catch (error: any) {
       toast({
         variant: "destructive",
