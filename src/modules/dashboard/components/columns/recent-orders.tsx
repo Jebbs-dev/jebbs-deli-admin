@@ -1,9 +1,9 @@
 "use client"
 
-import { Order } from "@/components/dashboard/data/recent-orders";
+import { Order } from "@/modules/dashboard/data/recent-orders";
 import { ColumnDef } from "@tanstack/react-table";
 import GetProducts from "../get-products";
-import SortOrdersStatus from "@/components/dashboard/sort-orders";
+import SortOrdersStatus from "../sort-orders";
 
 
 export const columns: ColumnDef<Order>[] = [
