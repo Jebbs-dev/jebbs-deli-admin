@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { TopProducts } from "../../data/top-products";
-import SortRatings from "../../sort-ratings";
+import SortRatings from "../sort-ratings";
 
 export const columns: ColumnDef<TopProducts>[] = [
   {
