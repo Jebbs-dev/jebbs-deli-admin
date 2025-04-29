@@ -1,4 +1,4 @@
-import RecentOrders from "@/modules/dashboard/components/recent-orders";
+import RecentOrders from "@/modules/orders/components/recent-orders";
 
  
 const OrdersPage = () => {
