@@ -14,6 +14,7 @@ import {
   Package2,
   Search,
   ShoppingCart,
+  ShoppingBasket,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -25,25 +26,35 @@ const links = [
   { name: "Dashboard", href: "/", icon: Home },
   { name: "Analytics", href: "/analytics", icon: LineChart },
   { name: "Products", href: "/products", icon: Package },
-  { name: "VendorStore", href: "/vendor-store", icon: ShoppingBag},
+  { name: "VendorStore", href: "/vendor-store", icon: ShoppingBag },
   { name: "Orders", href: "/orders", icon: ShoppingCart },
   { name: "Customers", href: "/customers", icon: Users },
+  { name: "Vendors", href: "/vendors", icon: ShoppingBasket },
+  { name: "ProductStore", href: "/product-store", icon: ShoppingBag },
 ];
 
 const NavLinks = () => {
   const pathname = usePathname();
   const userType = useUserRole();
-  
+
   // Filter links based on user role
-  const filteredLinks = links.filter(link => {
+  const filteredLinks = links.filter((link) => {
     // If user is a vendor, hide Analytics and Customers
     if (userType === "IS_VENDOR") {
-      return link.name !== "Analytics" && link.name !== "Customers";
+      return (
+        link.name !== "Analytics" &&
+        link.name !== "Customers" &&
+        link.name !== "Vendors" &&
+        link.name !== "ProductStore"
+      );
+    }
+    if (userType === "IS_ADMIN") {
+      return link.name !== "Products" && link.name !== "VendorStore";
     }
     // Show all links for other user types
     return true;
   });
-  
+
   return (
     <>
       {filteredLinks.map((link) => {
