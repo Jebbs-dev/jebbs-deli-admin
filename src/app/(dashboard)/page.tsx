@@ -1,10 +1,14 @@
-import RecentOrders from "@/modules/dashboard/components/recent-orders";
+"use client"
+
+import RecentOrders from "@/modules/orders/components/recent-orders";
 import SalesData from "@/modules/dashboard/components/sales-chart";
 import SummaryData from "@/modules/dashboard/components/summary-data";
 
 import TopProducts from "@/modules/dashboard/components/top-products";
+import useAuthStore from "@/state-store/auth";
 
 const DashboardPage = () => {
+ 
   return (
     <div className="flex flex-col space-y-7 py-6 w-full">
       <SummaryData />
