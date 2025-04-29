@@ -26,14 +26,6 @@ const SortOrdersStatus: React.FC<SortOrdersStatusProps> = ({ data }) => {
       }
     `}
     >
-      <span
-        className={`
-        rounded-full shrink-0 h-2 w-2
-      ${data.status === "Pending payment" ? "bg-yellow-700" : ""}
-      ${data.status === "Payment successful" ? "bg-blue-700" : ""}
-      ${data.status === "Product delivered" ? "bg-green-700" : ""}
-    `}
-      ></span>
       <div>{data.status}</div>
     </div>
   );
