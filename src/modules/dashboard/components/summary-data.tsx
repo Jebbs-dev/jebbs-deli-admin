@@ -4,10 +4,10 @@ import { summaryData } from "../data/data-summary";
 const SummaryData = () => {
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 mx-3 md:mx-0 md:grid-cols-4 md:gap-4 md:w-full">
+      <div className="grid md:grid-cols-2 gap-2 mx-3 md:mx-0 lg:grid-cols-4 md:gap-4 md:w-full">
         {summaryData.map((data) => (
           <div
-            className="flex md:w-full flex-col space-y-2 bg-white border p-3 rounded-md"
+            className="flex md:w-full flex-col space-y-2 bg-white dark:bg-background border p-3 rounded-md"
             key={data.item}
           >
             <div className="flex flex-row space-x-4 justify-between items-center ]">
@@ -15,7 +15,7 @@ const SummaryData = () => {
                 Total {data.item}
               </p>
               <div
-                className={`flex space-x-1 items-center border px-1  bg-opacity-20 rounded-sm ${
+                className={`flex space-x-1 items-center border dark:border-0 px-1  bg-opacity-20 rounded-sm ${
                   data.color === "green" ? "bg-[#33b63a]" : "bg-[#ff3a28]"
                 }`}
               >
