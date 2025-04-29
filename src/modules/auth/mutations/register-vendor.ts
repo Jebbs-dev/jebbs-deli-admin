@@ -17,10 +17,11 @@ export const useCreateVendor = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      setTimeout(() => {
-        router.refresh();
-      }, 300);
       if (data) {
+        setTimeout(() => {
+          router.push("/auth/vendor");
+          
+        }, 300);
         // toast({
         //   title: "Success",
         //   description: "Successfully Created Vendor Account!",
