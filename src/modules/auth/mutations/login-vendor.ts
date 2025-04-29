@@ -22,7 +22,7 @@ export const useLoginVendor = () => {
 
   return useMutation({
     mutationFn: async (vendor: Omit<Vendor, "id" | "name" | "role" | "store">) => {
-      const response = await api.post("/auth/login/vendor", vendor);
+      const response = await api.post("/auth/vendor/login", vendor);
       return response.data;
     },
     onSuccess: (data) => {
