@@ -1,4 +1,4 @@
-import VendorList from "@/modules/vendors/components/vendor-list";
+import VendorAdminList from "@/modules/vendors/components/vendor-list";
 import React from "react";
 
 const VendorAdminsPage = () => {
