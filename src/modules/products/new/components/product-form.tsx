@@ -104,6 +104,17 @@ const ProductForm = ({ product, productId }: ProductProps) => {
   const onSubmit = async (values: ProductFormValues) => {
     const imageValue = values.image && values.image[0];
 
+    // Validate image types
+    const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+    if (imageValue && !validImageTypes.includes(imageValue.type)) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Product image must be a JPG or PNG.",
+      });
+      return;
+    }
+
     const formData = new FormData();
     const currentValues = form.getValues();
     const changedValues = getChangedValues<ProductFormValues>(

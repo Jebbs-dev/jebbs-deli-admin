@@ -144,6 +144,35 @@ const VendorStoreForm = ({ vendorStoreData }: VendorStoreProps) => {
     const billboardValue = values.billboard && values.billboard[0];
     const logoValue = values.logo && values.logo[0];
 
+    // Validate image types
+    const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
+    if (
+      billboardValue &&
+      typeof billboardValue !== "string" &&
+      billboardValue instanceof File &&
+      !validImageTypes.includes(billboardValue.type)
+    ) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Billboard image must be a JPG or PNG.",
+      });
+      return;
+    }
+    if (
+      logoValue &&
+      typeof logoValue !== "string" &&
+      logoValue instanceof File &&
+      !validImageTypes.includes(logoValue.type)
+    ) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Logo image must be a JPG or PNG.",
+      });
+      return;
+    }
+
     const formData = new FormData();
     const currentValues = form.getValues();
     const changedValues = getChangedValues<FormValues>(
@@ -151,13 +180,17 @@ const VendorStoreForm = ({ vendorStoreData }: VendorStoreProps) => {
       currentValues
     );
 
+    function isFile(val: unknown): val is File {
+      return val instanceof File;
+    }
+
     // Append only changed values to formData
     Object.entries(changedValues).forEach(([key, value]) => {
       if (value !== undefined) {
         if (Array.isArray(value)) {
           // Handle arrays (tags)
           formData.append(key, JSON.stringify(value));
-        } else if (value instanceof File) {
+        } else if (isFile(value)) {
           // Handle File objects
           formData.append(key, value);
         } else {
