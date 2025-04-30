@@ -10,7 +10,7 @@ export type Product = {
   earnings: number | null;
 };
 
-export const categories = ["snack", "meal", "dessert", "drink"];
+
 
 const products: Product[] = [
   {
