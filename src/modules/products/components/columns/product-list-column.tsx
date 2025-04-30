@@ -1,8 +1,10 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Product } from "../data/product-list-data";
 import SortProductStatus from "../sort-status";
+import Image from "next/image";
+import ProductTableActions from "./product-table-actions";
+import { Product } from "@/types/products";
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -12,6 +14,17 @@ export const columns: ColumnDef<Product>[] = [
   {
     accessorKey: "image",
     header: "Image",
+    cell: ({ row }) => (
+      <Image
+        src={row.getValue("image") || 
+          "/assets/svg/placeholder.svg"}
+        
+        alt={row.getValue("name")}
+        width={40}
+        height={40}
+        className="w-10 h-10 object-cover rounded-full border border-gray-400"
+      />
+    ),
   },
   {
     accessorKey: "name",
@@ -24,37 +37,30 @@ export const columns: ColumnDef<Product>[] = [
       const amount = parseFloat(row.getValue("price"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD",
+        currency: "NGN",
       }).format(amount);
 
-      return <div>{formatted}</div>
+      return <div>{formatted}</div>;
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "isAvailable",
     header: "Status",
-    cell: ({ row }) => <SortProductStatus data={row.original} />
-    
+    cell: ({ row }) => <SortProductStatus data={row.original} />,
   },
   {
-    accessorKey: "unitsSold",
-    header: "Units Sold",
+    accessorKey: "stock",
+    header: "Stock",
   },
   {
-    accessorKey: "views",
-    header: "Views",
+    accessorKey: "category",
+    header: "Category",
   },
   {
-    accessorKey: "earnings",
-    header: "Earnings",
+    accessorKey: "",
+    header: "Actions",
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("earnings"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div>{formatted}</div>
+      return <ProductTableActions data={row.original} />;
     },
   },
 ];
