@@ -5,6 +5,7 @@ import { EllipsisVertical } from "lucide-react";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { Store } from "@/types/store";
+import ProductStoreTableActions from "./product-store-table-actions";
 
 export const columns: ColumnDef<Store>[] = [
   {
@@ -12,9 +13,8 @@ export const columns: ColumnDef<Store>[] = [
     header: "Logo",
     cell: ({ row }) => (
       <Image
-        src={row.getValue("logo") || 
-          "/assets/svg/placeholder.svg"}
-         alt={row.getValue("name")}
+        src={row.getValue("logo") || "/assets/svg/placeholder.svg"}
+        alt={row.getValue("name")}
         width={40}
         height={40}
         className="w-8 h-8 object-cover rounded-full border border-gray-400"
@@ -46,12 +46,10 @@ export const columns: ColumnDef<Store>[] = [
   },
 
   {
-    accessorKey: "actions",
+    accessorKey: "",
     header: "Actions",
-    cell: ({ row }) => (
-      <div>
-        <EllipsisVertical size={15} />
-      </div>
-    ),
+    cell: ({ row }) => {
+      return <ProductStoreTableActions data={row.original} />;
+    },
   },
 ];
