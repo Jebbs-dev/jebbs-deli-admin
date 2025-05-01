@@ -49,7 +49,11 @@ const NavLinks = () => {
       );
     }
     if (userType === "IS_ADMIN") {
-      return link.name !== "Products" && link.name !== "VendorStore";
+      return (
+        link.name !== "Products" &&
+        link.name !== "VendorStore" &&
+        link.name !== "Analytics"
+      );
     }
     // Show all links for other user types
     return true;
