@@ -34,15 +34,15 @@ import TableFilters from "@/components/date-filters";
 export const ProductListSkeleton = () => (
   <div className="mx-3 px-3 md:mx-0 md:px-10 py-4 border rounded-md bg-white dark:bg-background overflow-auto animate-pulse">
     <div className="flex justify-between items-center mb-4">
-      <div className="h-6 bg-gray-300 rounded w-1/4"></div>
+      <div className="h-6 bg-gray-300 dark:bg-orange-300 rounded w-1/4"></div>
       <div className="flex space-x-3">
-        <div className="h-8 w-[100px] md:w-[180px] bg-gray-300 rounded"></div>
-        <div className="h-8 w-24 bg-gray-300 rounded"></div>
+        <div className="h-8 w-[100px] md:w-[180px] bg-gray-300 dark:bg-orange-300 rounded"></div>
+        <div className="h-8 w-24 bg-gray-300 dark:bg-orange-300 rounded"></div>
       </div>
     </div>
     <div className="space-y-2">
       {Array.from({ length: 5 }).map((_, index) => (
-        <div key={index} className="h-10 bg-gray-300 rounded"></div>
+        <div key={index} className="h-10 bg-gray-300 dark:bg-orange-300 rounded"></div>
       ))}
     </div>
   </div>
@@ -79,10 +79,6 @@ const ProductList = () => {
   if (isLoading) {
     return <ProductListSkeleton />;
   }
-
-
-
-
 
   return (
     <div className="mx-3 px-3 md:mx-0 md:px-10 py-4 border rounded-md bg-white dark:bg-background overflow-auto">
