@@ -8,7 +8,7 @@ const VendorAuthPage = () => {
 
   return (
     <>
-      <Button className="w-full" asChild>
+      <Button className="w-full bg-green-600" asChild>
         <Link href="/auth">Click here to sign in as an admin</Link>
       </Button>
     </>
