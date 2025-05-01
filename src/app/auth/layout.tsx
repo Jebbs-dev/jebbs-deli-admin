@@ -23,8 +23,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (pathname === "/auth") {
     } else {
-      setIsVendorLogin(true)
-
+      setIsVendorLogin(true);
     }
   }, [pathname]);
 
@@ -35,9 +34,9 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="w-full h-full md:h-screen bg-orange-50 flex flex-col bg-cover md:grid md:grid-cols-2">
+    <div className="w-full h-full md:h-screen bg-orange-50 dark:bg-primary/5  flex flex-col bg-cover md:grid md:grid-cols-2">
       <div className="sm:h-[100vh] min-h-screen md:bg-opacity-70 text-sm flex items-center">
-        <h1 className="absolute top-3 left-[45%] mx-auto md:top-10 md:left-10 text-black text-2xl md:text-3xl">
+        <h1 className="absolute top-3 left-[45%] mx-auto md:top-10 md:left-10 text-black dark:text-foreground text-2xl md:text-3xl">
           deli<span className="text-orange-400">.</span>
         </h1>
         <div className="w-[80%] mx-auto flex flex-col space-y-2 xl:w-[60%] md:border-2 md:border-orange-400 md:rounded-md p-4 lg:p-10 mt-10 sm:mt-0">
@@ -46,7 +45,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
               ? "Sign in to your account"
               : "Create an Account"}
           </h1>
-          <p className="text-center text-neutral-600 font-light">
+          <p className="text-center text-neutral-600 dark:text-foreground  font-light">
             {variant === "login"
               ? "Enter your email and password below to sign in to your account"
               : "Enter your name, email and password below to create an account"}
@@ -76,7 +75,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
 
             <div className="flex justify-center items-center">
-              <p className="text-black">
+              <p className="text-black dark:text-foreground ">
                 {variant === "login"
                   ? "Don't have an account?"
                   : "Have an account?"}{" "}
@@ -96,19 +95,12 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </div>
-      <div className="md:h-screen md:w-full md:bg-[url('/auth-bg.jpg')] bg-cover">
-        {/* <Image
-          src={"/images/auth-bg.jpg"}
-          alt="logo"
-          width={200}
-          height={200}
-          className="h-full w-full"
-        /> */}
+      <div className="relative md:h-screen md:w-full">
+        <Image src="/auth-bg.jpg" alt="logo" fill className="object-cover" />
+        <div className="absolute inset-0 bg-transparent dark:bg-black/30 z-10" />
       </div>
     </div>
   );
 };
 
 export default AuthLayout;
-
-
