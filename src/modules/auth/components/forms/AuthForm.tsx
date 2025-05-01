@@ -171,7 +171,7 @@ const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Jack Smith" {...field} className="" />
+                    <Input placeholder="Jack Smith" {...field} className="dark:border-orange-400" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -188,7 +188,7 @@ const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
                   <Input
                     placeholder="user@example.com"
                     {...field}
-                    className=""
+                    className="dark:border-orange-400"
                   />
                 </FormControl>
                 <FormMessage />
@@ -206,7 +206,7 @@ const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
                     placeholder="password"
                     type="password"
                     {...field}
-                    className=""
+                    className="dark:border-orange-400"
                   />
                 </FormControl>
                 <FormMessage />

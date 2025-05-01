@@ -64,7 +64,7 @@ const VendorStore = () => {
           <div className="flex flex-col gap-4 w-1/2">
             <div>
               <p className="font-semibold">Name</p>
-              <p className="text-black">
+              <p className="text-black dark:text-gray-300">
                 {vendorStoreData?.name || (
                   <p className="text-gray-500">No infomation added</p>
                 )}
@@ -72,7 +72,7 @@ const VendorStore = () => {
             </div>
             <div>
               <p className="font-semibold">Email Address</p>
-              <p className="text-black">
+              <p className="text-black dark:text-gray-300">
                 {vendorStoreData?.email || (
                   <p className="text-gray-500">No infomation added</p>
                 )}
@@ -80,7 +80,7 @@ const VendorStore = () => {
             </div>
             <div>
               <p className="font-semibold">Address</p>
-              <p className="text-black">
+              <p className="text-black dark:text-gray-300">
                 {vendorStoreData?.address || (
                   <p className="text-gray-500">No infomation added</p>
                 )}
@@ -88,7 +88,7 @@ const VendorStore = () => {
             </div>
             <div>
               <p className="font-semibold">Joining Date</p>
-              <p className="text-black">
+              <p className="text-black dark:text-gray-300">
                 {dayjs(vendorStoreData?.createdAt).format("MMMM D, YYYY") || (
                   <p className="text-gray-500">No infomation added</p>
                 )}
@@ -122,7 +122,7 @@ const VendorStore = () => {
           <div className="flex flex-col gap-4 w-1/2">
             <div>
               <p className="font-semibold">Telephone</p>
-              <p className="text-black">
+              <p className="text-black dark:text-gray-300">
                 {vendorStoreData?.telephone || (
                   <p className="text-gray-500">No infomation added</p>
                 )}
@@ -130,7 +130,7 @@ const VendorStore = () => {
             </div>
             <div>
               <p className="font-semibold">Opening Time</p>
-              <p className="text-black">
+              <p className="text-black dark:text-gray-300">
                 {vendorStoreData?.openingTime || (
                   <p className="text-gray-500">No infomation added</p>
                 )}
@@ -138,7 +138,7 @@ const VendorStore = () => {
             </div>
             <div>
               <p className="font-semibold">Closing Time</p>
-              <p className="text-black">
+              <p className="text-black dark:text-gray-300">
                 {vendorStoreData?.closingTime || (
                   <p className="text-gray-500">No infomation added</p>
                 )}
@@ -146,7 +146,7 @@ const VendorStore = () => {
             </div>
             <div>
               <p className="font-semibold">Preparation Time</p>
-              <p className="text-black">
+              <p className="text-black dark:text-gray-300">
                 {vendorStoreData?.preparationTime || (
                   <p className="text-gray-500">No infomation added</p>
                 )}
@@ -155,7 +155,9 @@ const VendorStore = () => {
             <div>
               <p className="font-semibold">Tags</p>
               {vendorStoreData?.tags && vendorStoreData.tags.length > 0 ? (
-                <p className="text-black">{vendorStoreData.tags.join(", ")}</p>
+                <p className="text-black dark:text-gray-300">
+                  {vendorStoreData.tags.join(", ")}
+                </p>
               ) : (
                 <p className="text-gray-500">No information added</p>
               )}

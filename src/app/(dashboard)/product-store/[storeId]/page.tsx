@@ -25,7 +25,7 @@ const StoreInformationPage = () => {
   }
 
   return (
-    <div className="mx-3 my-10 px-3 md:mx-0 md:px-10 py-6 border rounded-md bg-white dark:bg-background overflow-auto">
+    <div className="mx-3 my-10 px-3 md:mx-0 md:px-10 py-6 border rounded-md bg-white dark:bg-primary/30  overflow-auto">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-xl font-semibold">Store Information</h1>
         <p

@@ -12,7 +12,7 @@ const SortProductStatus: React.FC<SortProductStatus> = ({ data }) => {
       px-3 py-1 flex flex-row shrink-0 space-x-3 items-center rounded-sm
       ${
         data.isAvailable
-          ? "bg-green-200 text-green-700 text-opacity-90"
+          ? "bg-green-200 dark:bg-green-200/90 text-green-700 text-opacity-90"
           : data.stock === 0
           ? "bg-red-200 text-red-700 text-opacity-90"
           : ""

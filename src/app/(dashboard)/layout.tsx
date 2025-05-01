@@ -7,7 +7,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
-    <div className="flex w-full min-h-screen flex-row bg-primary/5">
+    <div className="flex w-full min-h-screen flex-row bg-primary/5 dark:bg-background">
       <div className="relative flex-none w-12 md:w-52 lg:w-64">
         {/* <div className="p-6 md:hidden">
           <DashboardMenu />

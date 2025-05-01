@@ -11,7 +11,7 @@ const SideNav = () => {
 
   return (
     <>
-      <div className="flex flex-col fixed h-[100vh] bg-white dark:bg-background text-muted-foreground overflow-auto w-12 md:w-52 lg:w-64">
+      <div className="flex flex-col fixed h-[100vh] bg-white dark:bg-primary/10 text-muted-foreground overflow-auto w-12 md:w-52 lg:w-64">
         <Link
           className="flex items-center justify-center md:justify-start px-2 py-6 md:px-7 md:py-10"
           href="/"
