@@ -175,7 +175,7 @@ const ProductForm = ({ product, productId }: ProductProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-xs md:text-base">
         <FormField
           control={form.control}
           name="name"
@@ -361,7 +361,7 @@ const ProductForm = ({ product, productId }: ProductProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit">
+        <Button type="submit" className="w-full md:w-auto">
           {isPending ? (
             <>
               Submitting
