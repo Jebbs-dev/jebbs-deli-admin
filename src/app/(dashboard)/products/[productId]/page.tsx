@@ -25,20 +25,22 @@ const ProductPage = () => {
 
   return (
     <div className="flex flex-row mt-10 gap-10">
-      <div className="space-y-4 pl-3 w-2/3">
-        <h1 className="text-3xl font-semibold">
+      <div className="space-y-4 px-4 pb-6 md:px-0 md:pb-0 lg:w-2/3">
+        <h1 className="text-xl md:text-3xl font-semibold">
           {productId === "new" ? "Add New Product" : "Edit Product Information"}
         </h1>
         <ProductForm product={product} productId={String(productId)} />
       </div>
 
-      <Image
-        src="/assets/images/margo-brodowicz-zXuHflGL8ss-unsplash.jpg"
-        alt="steak with broccoli"
-        width={250}
-        height={400}
-        className="w-[450px] h-[900px] rounded-md"
-      />
+      <div className="hidden lg:block">
+        <Image
+          src="/assets/images/margo-brodowicz-zXuHflGL8ss-unsplash.jpg"
+          alt="steak with broccoli"
+          width={250}
+          height={400}
+          className="xl:w-[450px] h-full object-cover rounded-md"
+        />
+      </div>
     </div>
   );
 };
