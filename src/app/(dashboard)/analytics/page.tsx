@@ -1,5 +1,3 @@
-import { Component } from "@/modules/analytics/components/chart-one";
-
 const AnalyticsPage = () => {
   return (
     <div>
