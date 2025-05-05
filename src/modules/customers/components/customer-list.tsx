@@ -1,10 +1,7 @@
 "use client";
 
 import React from "react";
-// import { customers } from '../data/customers'
 import { columns as CustomerListColumns } from "./columns/customer-list-column";
-import { useFetchCustomer } from "../queries/fetch-customers";
-import { Customer } from "@/types/user";
 import { useFetchFilteredCustomers } from "../queries/fetch-filtered-customers";
 import useAuthStore from "@/state-store/auth";
 import { useQueryParamaters } from "@/state-store/use-query-params";
@@ -17,10 +14,8 @@ const CustomerList = () => {
   const { vendor } = useAuthStore();
   const {
     querykey,
-    setQueryKey,
     backendPagination,
     dateFilter,
-    setDateFilter,
   } = useQueryParamaters();
 
   const debouncedQuery = useDebounce(querykey, 1000);
