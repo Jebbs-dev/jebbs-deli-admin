@@ -1,5 +1,7 @@
+import useUserRole from "@/hooks/useUserRole";
+import useAuthStore from "@/state-store/auth";
 import api from "@/utils/api";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, skipToken, useQuery } from "@tanstack/react-query";
 
 export type ProductParams = {
   search?: string;
@@ -16,12 +18,21 @@ export const useFetchFilteredProductByStoreId = (
   storeId: string,
   params?: ProductParams
 ) => {
+  const { isLoggedIn } = useAuthStore();
+
+  const userType = useUserRole();
+
   return useQuery({
     queryKey: ["products", storeId, params],
-    queryFn: async () => {
-      const response = await api.get(`/products/store/${storeId}`, { params });
-      return response.data;
-    },
+    queryFn:
+      isLoggedIn && userType === "IS_VENDOR"
+        ? async () => {
+            const response = await api.get(`/products/store/${storeId}`, {
+              params,
+            });
+            return response.data;
+          }
+        : skipToken,
     placeholderData: keepPreviousData,
   });
 };

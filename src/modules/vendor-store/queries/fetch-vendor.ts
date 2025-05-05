@@ -1,12 +1,18 @@
+import useUserRole from "@/hooks/useUserRole";
+import useAuthStore from "@/state-store/auth";
 import api from "@/utils/api";
-import { useQuery } from "@tanstack/react-query";
+import { skipToken, useQuery } from "@tanstack/react-query";
 
 export const useFetchVendor = (vendorId: string) => {
+  const { isLoggedIn } = useAuthStore();
+
   return useQuery({
     queryKey: ["vendor"],
-    queryFn: async () => {
-      const response = await api.get(`/vendor/${vendorId}`);
-      return response.data;
-    },
+    queryFn: isLoggedIn
+      ? async () => {
+          const response = await api.get(`/vendor/${vendorId}`);
+          return response.data;
+        }
+      : skipToken,
   });
 };
