@@ -20,6 +20,7 @@ import { useCreateStore } from "../../mutations/add-store";
 import useAuthStore from "@/state-store/auth";
 import { useUpdateVendor } from "../../mutations/update-vendor";
 import { Store, StoreCreate } from "@/types/store";
+import { FaSpinner } from "react-icons/fa";
 
 export const formSchema = z.object({
   name: z.string().min(1),
@@ -30,7 +31,9 @@ const StoreModal = () => {
   const storeModal = useStoreModal();
   const { mutateAsync: createStore } = useCreateStore();
   const { vendor } = useAuthStore();
-  const { mutateAsync: updateVendor } = useUpdateVendor(String(vendor?.id));
+  const { mutateAsync: updateVendor, isPending } = useUpdateVendor(
+    String(vendor?.id)
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -120,11 +123,17 @@ const StoreModal = () => {
               <Button variant="outline" onClick={storeModal.onClose}>
                 Cancel
               </Button>
-              <Button
-                // disabled={isPending}
-                type="submit"
-              >
-                Continue
+              <Button type="submit">
+                {isPending ? (
+                  <>
+                    Submitting
+                    <span className="ml-2 text-sm">
+                      <FaSpinner className="animate-spin" />
+                    </span>
+                  </>
+                ) : (
+                  <>Continue </>
+                )}
               </Button>
             </div>
           </form>
