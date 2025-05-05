@@ -29,14 +29,14 @@ const DashboardMenu = () => {
           Welcome back to your Dashboard
         </p>
       </div>
-      <div className="hidden xl:flex items-center relative">
+      {/* <div className="hidden xl:flex items-center relative">
         <Search className="absolute ml-2 text-primary" size={20} />
         <Input
           type="text"
           className="pl-10 md:w-80 border-primary"
           placeholder="Search for meals..."
         />
-      </div>
+      </div> */}
       <div className="flex space-x-1 md:space-x-3">
         <ModeToggle />
 
