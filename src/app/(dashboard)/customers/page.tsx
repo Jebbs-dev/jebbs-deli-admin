@@ -1,7 +1,7 @@
 "use client"
 
 import CustomerList from "@/modules/customers/components/customer-list";
-import { useFetchCustomer } from "@/modules/customers/queries/fetch-customers";
+import { useFetchCustomer } from "@/modules/customers/queries/fetch-customer-count";
 
 
  
