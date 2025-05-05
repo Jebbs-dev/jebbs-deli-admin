@@ -20,7 +20,7 @@ const SummaryData = () => {
   const { data: customersCount, isLoading: isCustomersLoading } =
     useFetchCustomerCount();
   const {data: vendorProductsCount, isLoading: isVendorProductsLoading} = useFetchProductsCountByStore(String(vendor?.store.id));
-  const {data: storeOrderCount, isLoading: isStoreOrderCountLoading} = useFetchStoreOrdersCount(String(vendor?.id));
+  const {data: storeOrders, isLoading: isStoreOrderCountLoading} = useFetchStoreOrdersCount(String(vendor?.store.id));
 
   const userType = useUserRole();
 
@@ -33,24 +33,25 @@ const SummaryData = () => {
   }
 
   const totalOrders = orders?.orders;
+  const totalVendorOrders = orders?.orders;
 
-  const totalSales = totalOrders.filter(
+  const totalSales = totalOrders?.filter(
     (order: Order) => order.status === "delivered"
   );
-  const totalSalesCount = totalSales.length;
+  const totalSalesCount = totalSales?.length;
 
   let totalVendorSum = 0;
   let totalSum = 0;
 
-  const totalVendorAmount = totalOrders.map((order: Order) => order.subTotal);
+  const totalVendorAmount = totalVendorOrders?.map((order: Order) => order.subTotal);
 
-  totalVendorAmount.forEach((num: number) => {
+  totalVendorAmount?.forEach((num: number) => {
     totalVendorSum += num;
   });
 
-  const totalAmountMade = totalOrders.map((order: Order) => order.totalPrice);
+  const totalAmountMade = totalOrders?.map((order: Order) => order.totalPrice);
 
-  totalAmountMade.forEach((num: number) => {
+  totalAmountMade?.forEach((num: number) => {
     totalSum += num;
   });
 
@@ -150,7 +151,7 @@ const SummaryData = () => {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-lg font-medium">{userType === "IS_ADMIN" ? totalCount : storeOrderCount?.totalOrders}</p>
+            <p className="text-lg font-medium">{userType === "IS_ADMIN" ? totalCount : storeOrders?.totalOrders}</p>
             <Image src={Chart4} alt="chartline" className="w-12 h-3" />
           </div>
         </div>
