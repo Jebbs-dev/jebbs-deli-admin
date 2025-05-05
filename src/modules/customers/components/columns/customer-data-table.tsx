@@ -41,6 +41,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useQueryParamaters } from "@/state-store/use-query-params";
+import { FaSpinner } from "react-icons/fa";
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -53,6 +54,7 @@ export interface DataTableProps<TData, TValue> {
   showAdvancedPagination?: boolean;
   placeholder?: string;
   columnFilterKey: string;
+  isLoading: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -66,6 +68,7 @@ export function DataTable<TData, TValue>({
   showInput,
   showPagination,
   showAdvancedPagination,
+  isLoading,
 }: DataTableProps<TData, TValue>) {
   // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<any>([]);
@@ -154,7 +157,13 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {isLoading ? (
+                    <div className="flex justify-center items-center">
+                      <FaSpinner className="animate-spin text-2xl text-orange-500" />
+                    </div>
+                  ) : (
+                    "No results."
+                  )}
                 </TableCell>
               </TableRow>
             )}

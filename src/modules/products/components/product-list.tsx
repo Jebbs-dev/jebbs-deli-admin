@@ -76,10 +76,6 @@ const ProductList = () => {
 
   const router = useRouter();
 
-  if (isLoading) {
-    return <ProductListSkeleton />;
-  }
-
   return (
     <div className="mx-3 px-3 md:mx-0 md:px-10 py-4 border rounded-md bg-white dark:bg-background overflow-auto">
       <TableFilters
@@ -95,6 +91,7 @@ const ProductList = () => {
         total={productsByStore?.total}
         limit={productsByStore?.limit}
         offset={productsByStore?.offset}
+        isLoading={isLoading}
         showInput
         showAdvancedPagination
         placeholder="Search for products..."

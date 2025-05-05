@@ -6,7 +6,6 @@ import { columns as ProductStoreListColumns } from "./columns/product-store-colu
 import useAuthStore from "@/state-store/auth";
 import { useQueryParamaters } from "@/state-store/use-query-params";
 import { useDebounce } from "@/hooks/use-debounce";
-import { ProductListSkeleton } from "@/modules/products/components/product-list";
 import TableFilters from "@/components/date-filters";
 import { useFetchFilteredStores } from "../queries/fetch-filtered-stores";
 import { DataTable } from "./columns/product-store-datatable";
@@ -30,9 +29,6 @@ const ProductStoreList = () => {
     endDate: dateFilter.endDate,
   });
 
-  if (isLoading) {
-    return <ProductListSkeleton />;
-  }
 
   return (
     <div className="mx-3 px-3 md:mx-0 md:px-10 py-4 border rounded-md bg-white dark:bg-background">
@@ -40,10 +36,11 @@ const ProductStoreList = () => {
 
       <DataTable
         columns={ProductStoreListColumns}
-        data={stores?.stores}
+        data={stores?.stores || []}
         total={stores?.total}
         limit={stores?.limit}
         offset={stores?.offset}
+        isLoading={isLoading}
         showInput
         showAdvancedPagination
         placeholder="Search by name or address..."
