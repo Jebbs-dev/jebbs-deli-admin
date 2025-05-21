@@ -5,9 +5,11 @@ import NavLinks from "./nav-links";
 import { Settings } from "lucide-react";
 import { LogOut } from "lucide-react";
 import useAuthStore from "@/state-store/auth";
+import { useRouter } from "next/navigation";
 
 const SideNav = () => {
   const { isLoggedIn, logout } = useAuthStore();
+  const router = useRouter();
 
   return (
     <>
@@ -28,7 +30,7 @@ const SideNav = () => {
           <div className="flex flex-col gap-1 mt-4">
             <NavLinks />
           </div>
-          <div className="mt-auto flex flex-col sm:px-0 sm:items-center md:items-start md:px-7 pb-10">
+          <div className="mt-auto flex flex-col sm:px-0 sm:items-center md:items-start md:px-7 pb-20 md:pb-10">
             <Link
               className="flex items-center justify-center md:justify-start py-5 text-sm text-primary hover:text-orange-600 hover:text-opacity-90"
               href="/dashboard/settings"
@@ -40,7 +42,10 @@ const SideNav = () => {
             </Link>
             <button
               className="flex items-center justify-center md:justify-start py-3 text-sm text-primary hover:text-orange-600 hover:text-opacity-90"
-              onClick={logout}
+              onClick={() => {
+                router.push("/auth");
+                logout;
+              }}
             >
               <div className="flex">
                 <LogOut className="sm:mr-0 md:mr-3" size={20} />
