@@ -1,13 +1,10 @@
 import { useAuthStore } from "@/state-store/auth";
-import { User, Vendor } from "@/types/user";
+import { Admin, User } from "@/types/user";
 import { getUserRole } from "@/utils/get-user-role";
 
 const useUserRole = () => {
-  const { user, vendor } = useAuthStore();
-  return getUserRole(
-    user as Omit<User, "password">,
-    vendor as Omit<Vendor, "password">
-  );
+  const { user } = useAuthStore();
+  return getUserRole(user as Omit<Admin, "password">);
 };
 
 export default useUserRole;
