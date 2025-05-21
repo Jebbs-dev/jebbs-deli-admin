@@ -1,16 +1,14 @@
-import { User, Vendor } from "@/types/user";
+import { Admin, User } from "@/types/user";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface AuthState {
   isLoggedIn: boolean;
-  user: Omit<User, "password"> | null;
-  vendor: Omit<Vendor, "password"> | null;
+  user: Omit<Admin, "password"> | null;
 }
 
 interface AuthActions {
-  login: (user: Omit<User, "password">) => void;
-  loginVendor: (user: Omit<Vendor, "password">) => void;
+  login: (user: Omit<Admin, "password">) => void;
   logout: () => void;
   syncWithLocalStorage: () => void;
 }
@@ -22,14 +20,10 @@ export const useAuthStore = create<AuthStore>()(
     (set) => ({
       isLoggedIn: false,
       user: null,
-      vendor: null,
       login: (user) => set({ isLoggedIn: true, user }),
-      loginVendor: (vendor) => {
-        set({ isLoggedIn: true, vendor });
-      },
       logout: () => {
         localStorage.removeItem("userInfo");
-        set({ isLoggedIn: false, user: null, vendor: null });
+        set({ isLoggedIn: false, user: null });
       },
       syncWithLocalStorage: () => {
         try {
@@ -38,9 +32,7 @@ export const useAuthStore = create<AuthStore>()(
             const userInfo = JSON.parse(userInfoStr);
             if (userInfo.user) {
               set({ isLoggedIn: true, user: userInfo.user });
-            } else if (userInfo.vendor) {
-              set({ isLoggedIn: true, vendor: userInfo.vendor });
-            }
+            } 
           }
         } catch (error) {
           console.error("Error syncing with localStorage:", error);
