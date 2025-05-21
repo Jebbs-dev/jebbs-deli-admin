@@ -25,7 +25,6 @@ import { useCreateAdmin } from "../../mutations/register-admin";
 
 interface AuthFormProps {
   variant: string;
-  isVendorLogin?: boolean;
 }
 
 const signupDefaultValues = {
@@ -39,17 +38,17 @@ const loginDefaultValues = {
   password: "",
 };
 
-const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
+const AuthForm = ({ variant }: AuthFormProps) => {
   const { toast } = useToast();
   const pathname = usePathname();
 
   const { mutateAsync: loginUser, isPending } = useLoginUser();
-  const { mutateAsync: loginVendor, isPending: isVendorPending } =
-    useLoginVendor();
+  // const { mutateAsync: loginVendor, isPending: isVendorPending } =
+  //   useLoginVendor();
+  //   const { mutateAsync: registerAdmin, isPending: isAdminPending } =
+  //     useCreateAdmin();
   const { mutateAsync: registerVendor, isPending: isLoading } =
     useCreateVendor();
-  const { mutateAsync: registerAdmin, isPending: isAdminPending } =
-    useCreateAdmin();
 
   const formSchema = z.object({
     name: z
@@ -85,19 +84,11 @@ const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
 
   const login = async (values: { email: string; password: string }) => {
     try {
-      if (isVendorLogin) {
-        await loginVendor(values);
-        toast({
-          title: "Success",
-          description: "Logged in successfully!",
-        });
-      } else {
-        await loginUser(values);
-        toast({
-          title: "Success",
-          description: "Logged in successfully!",
-        });
-      }
+      await loginUser(values);
+      toast({
+        title: "Success",
+        description: "Logged in successfully!",
+      });
     } catch (error) {
       toast({
         variant: "destructive",
@@ -119,30 +110,16 @@ const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
         return;
       }
 
-      if (isVendorLogin) {
-        await registerVendor({
-          name: values.name,
-          email: values.email,
-          password: values.password,
-        });
+      await registerVendor({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
 
-        toast({
-          title: "Success",
-          description: "Successfully Created Vendor Account!",
-        });
-      } else {
-        await registerAdmin({
-          name: values.name,
-          email: values.email,
-          password: values.password,
-        });
-
-        toast({
-          title: "Success",
-          description: "Successfully Created Admin Account!",
-        });
-
-      }
+      toast({
+        title: "Success",
+        description: "Successfully Created Vendor Account!",
+      });
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -171,7 +148,11 @@ const AuthForm = ({ variant, isVendorLogin }: AuthFormProps) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Jack Smith" {...field} className="dark:border-orange-400" />
+                    <Input
+                      placeholder="Jack Smith"
+                      {...field}
+                      className="dark:border-orange-400"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
