@@ -14,23 +14,30 @@ import useAuthStore from "@/state-store/auth";
 import { useFetchStoreOrdersCount } from "@/modules/orders/queries/fetch-order-count-by-store";
 
 const SummaryData = () => {
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
 
   const { data: orders, isLoading: isOrdersLoading } = useFetchOrdersCount();
   const { data: customersCount, isLoading: isCustomersLoading } =
     useFetchCustomerCount();
-  const {data: vendorProductsCount, isLoading: isVendorProductsLoading} = useFetchProductsCountByStore(String(vendor?.store.id));
-  const {data: storeOrders, isLoading: isStoreOrderCountLoading} = useFetchStoreOrdersCount(String(vendor?.store.id));
+  const { data: vendorProductsCount, isLoading: isVendorProductsLoading } =
+    useFetchProductsCountByStore(String(user?.store?.id));
+  const { data: storeOrders, isLoading: isStoreOrderCountLoading } =
+    useFetchStoreOrdersCount(String(user?.store?.id));
 
   const userType = useUserRole();
 
-  if (isOrdersLoading || isCustomersLoading || isVendorProductsLoading || isStoreOrderCountLoading) {
-    return (
-      <div className="flex justify-center items-center">
-        <Loader className="animate-spin" />
-      </div>
-    );
-  }
+  // if (
+  //   isOrdersLoading ||
+  //   isCustomersLoading ||
+  //   isVendorProductsLoading ||
+  //   isStoreOrderCountLoading
+  // ) {
+  //   return (
+  //     <div className="flex justify-center items-center">
+  //       <Loader className="animate-spin" />
+  //     </div>
+  //   );
+  // }
 
   const totalOrders = orders?.orders;
   const totalVendorOrders = orders?.orders;
@@ -43,7 +50,9 @@ const SummaryData = () => {
   let totalVendorSum = 0;
   let totalSum = 0;
 
-  const totalVendorAmount = totalVendorOrders?.map((order: Order) => order.subTotal);
+  const totalVendorAmount = totalVendorOrders?.map(
+    (order: Order) => order.subTotal
+  );
 
   totalVendorAmount?.forEach((num: number) => {
     totalVendorSum += num;
@@ -78,9 +87,9 @@ const SummaryData = () => {
           </div>
           <div className="flex justify-between items-center">
             {userType === "IS_ADMIN" ? (
-              <p className="text-lg font-medium">₦{totalSum}</p>
+              <p className="text-lg font-medium">₦{totalSum || 0}</p>
             ) : (
-              <p className="text-lg font-medium">₦{totalVendorSum}</p>
+              <p className="text-lg font-medium">₦{totalVendorSum || 0}</p>
             )}
             <Image src={Chart1} alt="chartline" className="w-12 h-3" />
           </div>
@@ -103,7 +112,7 @@ const SummaryData = () => {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-lg font-medium">{totalSalesCount}</p>
+            <p className="text-lg font-medium">{totalSalesCount || 0}</p>
             <Image src={Chart1} alt="chartline" className="w-12 h-3" />
           </div>
         </div>
@@ -128,7 +137,11 @@ const SummaryData = () => {
           </div>
           <div className="flex justify-between items-center">
             <p className="text-lg font-medium">
-              {userType === "IS_ADMIN" ? customersCount?.totalCustomers : vendorProductsCount?.totalProducts}
+              {userType === "IS_ADMIN"
+                ? customersCount?.totalCustomers
+                : userType === "IS_VENDOR"
+                ? vendorProductsCount?.totalProducts
+                : 0}
             </p>
             <Image src={Chart3} alt="chartline" className="w-12 h-3" />
           </div>
@@ -151,7 +164,13 @@ const SummaryData = () => {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-lg font-medium">{userType === "IS_ADMIN" ? totalCount : storeOrders?.totalOrders}</p>
+            <p className="text-lg font-medium">
+              {userType === "IS_ADMIN"
+                ? totalCount
+                : userType === "IS_VENDOR"
+                ? storeOrders?.totalOrders
+                : 0}
+            </p>
             <Image src={Chart4} alt="chartline" className="w-12 h-3" />
           </div>
         </div>
