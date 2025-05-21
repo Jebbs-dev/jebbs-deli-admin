@@ -1,13 +1,12 @@
-import { User, Vendor } from "@/types/user";
+import { Admin, User } from "@/types/user";
 
-const isVendor = (user: Omit<Vendor, "password">) => user?.role === "VENDOR";
-const isAdmin = (user: Omit<User, "password">) => user?.role === "ADMIN";
+const isVendor = (user: Omit<Admin, "password">) => user?.role === "VENDOR";
+const isAdmin = (user: Omit<Admin, "password">) => user?.role === "ADMIN";
 
 const getUserRole = (
-  user: Omit<User, "password">,
-  vendor: Omit<Vendor, "password">
+  user: Omit<Admin, "password">,
 ) => {
-  return isVendor(vendor) ? "IS_VENDOR" : isAdmin(user) ? "IS_ADMIN" : "";
+  return isVendor(user) ? "IS_VENDOR" : isAdmin(user) ? "IS_ADMIN" : "";
 };
 
 const roles = {
