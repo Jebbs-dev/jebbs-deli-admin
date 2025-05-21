@@ -16,6 +16,6 @@ export interface Customer extends User  {
   store?: Store;
 }
 
-export interface Vendor extends User {
-  store: Partial<Store>;
+export interface Admin extends User {
+  store?: Partial<Store>;
 }
