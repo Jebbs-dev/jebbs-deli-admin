@@ -11,7 +11,7 @@ import { useFetchFilteredStores } from "../queries/fetch-filtered-stores";
 import { DataTable } from "./columns/product-store-datatable";
 
 const ProductStoreList = () => {
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
   const {
     querykey,
     setQueryKey,

@@ -30,9 +30,9 @@ export const formSchema = z.object({
 const StoreModal = () => {
   const storeModal = useStoreModal();
   const { mutateAsync: createStore } = useCreateStore();
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
   const { mutateAsync: updateVendor, isPending } = useUpdateVendor(
-    String(vendor?.id)
+    String(user?.id)
   );
 
   const form = useForm<z.infer<typeof formSchema>>({

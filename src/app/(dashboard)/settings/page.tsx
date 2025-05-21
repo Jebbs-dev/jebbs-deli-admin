@@ -5,7 +5,7 @@ import useUserRole from '@/hooks/useUserRole';
 
 const SettingsPage = () => {
 
-  const { user, vendor} = useAuthStore()
+  const { user} = useAuthStore()
   return (
     <div>
 

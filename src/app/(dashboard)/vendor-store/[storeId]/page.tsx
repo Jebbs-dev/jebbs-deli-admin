@@ -8,7 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import React from "react";
 
 const VendorStoreInfo = () => {
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
 
   const { storeId } = useParams();
 
@@ -16,7 +16,7 @@ const VendorStoreInfo = () => {
 
   const { data: vendorStoreData, isLoading } = useFetchVendorStore(
     String(storeId),
-    String(vendor?.id)
+    String(user?.id)
   );
 
   if (isLoading) {

@@ -10,7 +10,7 @@ import { useFetchFilteredVendors } from "../queries/fetch-filtered-vendors";
 import { DataTable } from "./columns/vendor-datatable";
 
 const VendorAdminList = () => {
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
   const {
     querykey,
     setQueryKey,

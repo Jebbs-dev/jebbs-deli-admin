@@ -14,7 +14,7 @@ import { useFetchFilteredOrders } from "../queries/fetch-filtered-orders";
 import { FaSpinner } from "react-icons/fa";
 
 const RecentOrders = () => {
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
   const {
     querykey,
     setQueryKey,
@@ -26,7 +26,7 @@ const RecentOrders = () => {
   const debouncedQuery = useDebounce(querykey, 1000);
 
   const { data: ordersByStore, isLoading } = useFetchFilteredOrderByStore(
-    String(vendor?.store.id),
+    String(user?.store?.id),
     {
       ...backendPagination,
       search: debouncedQuery,

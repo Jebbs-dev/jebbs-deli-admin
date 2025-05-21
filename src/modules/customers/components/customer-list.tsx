@@ -10,7 +10,7 @@ import { DataTable } from "./columns/customer-data-table";
 import TableFilters from "@/components/date-filters";
 
 const CustomerList = () => {
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
   const {
     querykey,
     backendPagination,

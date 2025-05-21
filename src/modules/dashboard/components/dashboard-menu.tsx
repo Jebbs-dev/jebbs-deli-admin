@@ -15,7 +15,7 @@ import useAuthStore from "@/state-store/auth";
 import useUserRole from "@/hooks/useUserRole";
 
 const DashboardMenu = () => {
-  const { user, vendor } = useAuthStore();
+  const { user } = useAuthStore();
 
   const userType = useUserRole();
 
@@ -23,7 +23,7 @@ const DashboardMenu = () => {
     <div className="flex items-center justify-between px-3 md:p-0">
       <div>
         <h3 className="font-semibold text-xl md:text-2xl">
-          Hi, {userType === "IS_VENDOR" ? vendor?.name : user?.name}
+          Hi, {user?.name}
         </h3>
         <p className="hidden md:block text-sm md:text-md md:text-muted-foreground">
           Welcome back to your Dashboard

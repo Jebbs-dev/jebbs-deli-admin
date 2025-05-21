@@ -57,12 +57,12 @@ const ProductList = () => {
     setDateFilter,
   } = useQueryParamaters();
 
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
 
   const debouncedQuery = useDebounce(querykey, 1000);
 
   const { data: productsByStore, isLoading } = useFetchFilteredProductByStoreId(
-    String(vendor?.store.id),
+    String(user?.store?.id),
     {
       ...backendPagination,
       search: debouncedQuery,

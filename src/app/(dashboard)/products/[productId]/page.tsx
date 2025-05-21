@@ -10,11 +10,11 @@ import useAuthStore from "@/state-store/auth";
 const ProductPage = () => {
   const { productId } = useParams();
 
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
 
   const { data: product, isLoading } = useFetchProductById(
     String(productId !== "new" && productId),
-    String(productId !== "new" && vendor?.store.id)
+    String(productId !== "new" && user?.store?.id)
   );
 
   if (isLoading) {

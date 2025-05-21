@@ -11,9 +11,9 @@ import { useFetchVendor } from "@/modules/vendor-store/queries/fetch-vendor";
 import { useFetchStore } from "@/modules/vendor-store/queries/fetch-vendor-store";
 
 const VendorStore = () => {
-  const { vendor } = useAuthStore();
+  const { user } = useAuthStore();
 
-  const vendorStore = vendor?.store;
+  const vendorStore = user?.store;
 
   const { data: vendorStoreData, isLoading } = useFetchStore(
     String(vendorStore?.id)
