@@ -1,4 +1,4 @@
-import { Vendor } from "@/types/user";
+import { Admin } from "@/types/user";
 import api from "@/utils/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -6,7 +6,7 @@ export const useUpdateVendor = (vendorId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: Partial<Vendor>) => {
+    mutationFn: async (data: Partial<Admin>) => {
       const response = await api.patch(`/users/${vendorId}`, data);
       return response.data;
     },
