@@ -1,4 +1,4 @@
-import { User, Vendor } from "@/types/user";
+import { User, Admin } from "@/types/user";
 import api from "@/utils/api";
 
 import { useMutation } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ import { useFetchVendorStore } from "@/modules/vendor-store/queries/fetch-vendor
 export const useLoginVendor = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { loginVendor, vendor } = useAuthStore();
+  // const { loginVendor, vendor } = useAuthStore();
 
   const storeModal = useStoreModal();
   const userType = useUserRole();
@@ -21,39 +21,39 @@ export const useLoginVendor = () => {
   const { toast } = useToast();
 
   return useMutation({
-    mutationFn: async (vendor: Omit<Vendor, "id" | "name" | "role" | "store">) => {
+    mutationFn: async (vendor: Omit<Admin, "id" | "name" | "role" | "store">) => {
       const response = await api.post("/auth/vendor/login", vendor);
       return response.data;
     },
-    onSuccess: (data) => {
-      if (data) {
-        toast({
-          title: "Success",
-          description: "Logged in successfully!",
-        });
-        // Store tokens in localStorage
-        localStorage.setItem("userInfo", JSON.stringify(data));
-        // Update auth store with user data
+    // onSuccess: (data) => {
+    //   if (data) {
+    //     toast({
+    //       title: "Success",
+    //       description: "Logged in successfully!",
+    //     });
+    //     // Store tokens in localStorage
+    //     localStorage.setItem("userInfo", JSON.stringify(data));
+    //     // Update auth store with user data
         
-        console.log(data.user);
+    //     console.log(data.user);
 
-        loginVendor(data.user);
-        router.push("/");
+    //     loginVendor(data.user);
+    //     router.push("/");
 
-        if (userType === "IS_VENDOR" && vendor?.store === null ) {
-          storeModal.onOpen();
-        }
+    //     if (userType === "IS_VENDOR" && vendor?.store === null ) {
+    //       storeModal.onOpen();
+    //     }
 
-        // Move the cart handling logic here
-      }
-    },
-    onError: (error) => {
-      console.error("Login failed:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message,
-      });
-    },
+    //     // Move the cart handling logic here
+    //   }
+    // },
+    // onError: (error) => {
+    //   console.error("Login failed:", error);
+    //   toast({
+    //     variant: "destructive",
+    //     title: "Error",
+    //     description: error.message,
+    //   });
+    // },
   });
 };
