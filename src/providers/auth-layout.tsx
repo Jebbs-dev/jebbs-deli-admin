@@ -6,7 +6,7 @@ import { FaSpinner } from "react-icons/fa";
 import useAuthStore from "@/state-store/auth";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const { user, isLoggedIn, login, loginVendor } = useAuthStore();
+  const { user, isLoggedIn, login } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -18,23 +18,21 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         const userInfoStr = localStorage.getItem("userInfo");
         if (userInfoStr) {
           const userInfo = JSON.parse(userInfoStr);
-          
+
           // Check if we have valid tokens
           if (userInfo.accessToken) {
             // If we have valid info but the auth store is not updated, update it
             if (!isLoggedIn) {
               if (userInfo.user) {
                 login(userInfo.user);
-              } else if (userInfo.user.role === "VENDOR") {
-                loginVendor(userInfo.user);
               }
             }
-            
+
             // Only navigate away from auth pages
             if (pathname.startsWith("/auth")) {
               router.replace("/");
             }
-            
+
             setCheckingAuth(false);
             return true;
           }
@@ -49,15 +47,15 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     // If not logged in according to the store, check localStorage
     if (!isLoggedIn) {
       const hasValidUserInfo = checkUserInfoInLocalStorage();
-      
+
       // Only redirect to auth if no valid userInfo was found
       if (!hasValidUserInfo && !pathname.startsWith("/auth")) {
         router.replace("/auth");
       }
     }
-    
+
     setCheckingAuth(false);
-  }, [isLoggedIn, user, router, pathname, login, loginVendor]);
+  }, [isLoggedIn, user, router, pathname, login]);
 
   // Prevent rendering anything while checking authentication
   if (checkingAuth) {
