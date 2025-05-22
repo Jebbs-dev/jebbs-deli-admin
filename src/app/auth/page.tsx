@@ -1,22 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
-import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
-import { usePathname, useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import AuthForm from "@/modules/auth/components/forms/AuthForm";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
-const AuthPage = ({ children }: { children: React.ReactNode }) => {
+const AuthPage = () => {
   const [variant, setVariant] = useState("login");
-
-  const router = useRouter();
-
-  const pathname = usePathname();
 
   const toggleVariant = () => {
     setVariant((currentVariant) =>
