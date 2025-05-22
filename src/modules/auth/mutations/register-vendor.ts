@@ -19,7 +19,7 @@ export const useCreateVendor = () => {
     onSuccess: (data) => {
       if (data) {
         setTimeout(() => {
-          router.push("/auth/vendor");
+          router.refresh();
           
         }, 300);
         // toast({
