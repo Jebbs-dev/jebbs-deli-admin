@@ -1,10 +1,4 @@
 import { ArrowUp, ArrowDown, LucideIcon } from "lucide-react";
-import Chart1 from "@/../../public/chart1.png";
-import Chart2 from "@/../../public/chart2.png";
-import Chart3 from "@/../../public/chart3.png";
-import Chart4 from "@/../../public/chart4.png";
-import { StaticImageData } from "next/image";
-
 
 interface SummaryProps {
   item: string;
@@ -12,7 +6,7 @@ interface SummaryProps {
   percentage: number;
   symbol: string;
   indicator: LucideIcon;
-  chartLine: StaticImageData;
+  chartLine: string;
   color: string;
 }
 
@@ -23,7 +17,7 @@ export const summaryData: SummaryProps[] = [
     percentage: 20,
     symbol: "+",
     indicator: ArrowUp,
-    chartLine: Chart1,
+    chartLine: "/chart1.png",
     color: "green",
   },
   {
@@ -32,7 +26,7 @@ export const summaryData: SummaryProps[] = [
     percentage: 14.2,
     symbol: "-",
     indicator: ArrowDown,
-    chartLine: Chart2,
+    chartLine: "/chart2.png",
     color: "red",
   },
   {
@@ -41,7 +35,7 @@ export const summaryData: SummaryProps[] = [
     percentage: 12.4,
     symbol: "+",
     indicator: ArrowUp,
-    chartLine: Chart3,
+    chartLine: "/chart3.png",
     color: "green",
   },
   {
@@ -50,10 +44,7 @@ export const summaryData: SummaryProps[] = [
     percentage: 13.7,
     symbol: "+",
     indicator: ArrowUp,
-    chartLine: Chart4,
+    chartLine: "/chart4.png",
     color: "green",
   },
 ];
-
-
-

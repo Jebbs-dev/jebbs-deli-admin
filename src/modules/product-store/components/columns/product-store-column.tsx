@@ -1,9 +1,7 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { EllipsisVertical } from "lucide-react";
 import dayjs from "dayjs";
-import Image from "next/image";
+import { Image } from "@unpic/react";
 import { Store } from "@/types/store";
 import ProductStoreTableActions from "./product-store-table-actions";
 

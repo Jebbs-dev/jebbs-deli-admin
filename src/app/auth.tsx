@@ -1,12 +1,15 @@
-"use client";
-
 import { useState } from "react";
-import Image from "next/image";
+import { Image } from "@unpic/react";
+import { createFileRoute } from "@tanstack/react-router";
 import { FcGoogle } from "react-icons/fc";
 import { Separator } from "@/components/ui/separator";
 import AuthForm from "@/modules/auth/components/forms/AuthForm";
 
-const AuthPage = () => {
+export const Route = createFileRoute("/auth")({
+  component: AuthPage,
+});
+
+function AuthPage() {
   const [variant, setVariant] = useState("login");
 
   const toggleVariant = () => {
@@ -51,9 +54,6 @@ const AuthPage = () => {
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition border border-orange-400">
                 <FcGoogle size={32} />
               </div>
-              {/* <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition border border-orange-400">
-                <FaTwitter size={27} color="#0ea5e9" />
-              </div> */}
             </div>
 
             <div className="flex justify-center items-center">
@@ -74,12 +74,15 @@ const AuthPage = () => {
           </div>
         </div>
       </div>
-      <div className="relative md:h-screen md:w-full">
-        <Image src="/auth-bg.jpg" alt="logo" fill className="object-cover" />
+      <div className="relative md:h-screen md:w-full hidden md:block">
+        <Image
+          src="/auth-bg.jpg"
+          alt="logo"
+          layout="fullWidth"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-transparent dark:bg-black/30 z-10" />
       </div>
     </div>
   );
-};
-
-export default AuthPage;
+}

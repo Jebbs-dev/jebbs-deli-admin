@@ -1,22 +1,20 @@
-"use client";
-
-import Link from "next/link";
+import { Link, useNavigate } from "@tanstack/react-router";
 import NavLinks from "./nav-links";
 import { Settings } from "lucide-react";
 import { LogOut } from "lucide-react";
 import useAuthStore from "@/state-store/auth";
-import { useRouter } from "next/navigation";
+import api from "@/utils/api";
 
 const SideNav = () => {
-  const { isLoggedIn, logout } = useAuthStore();
-  const router = useRouter();
+  const { logout } = useAuthStore();
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="flex flex-col fixed h-[100vh] bg-white dark:bg-primary/10 text-muted-foreground overflow-auto w-12 md:w-52 lg:w-64">
         <Link
           className="flex items-center justify-center md:justify-start px-2 py-6 md:px-7 md:py-10"
-          href="/"
+          to="/"
         >
           <p className="hidden md:block text-black dark:text-white text-xl md:text-3xl ">
             deli<span className="text-primary text-2xl md:text-5xl">.</span>
@@ -33,7 +31,7 @@ const SideNav = () => {
           <div className="mt-auto flex flex-col sm:px-0 sm:items-center md:items-start md:px-7 pb-20 md:pb-10">
             <Link
               className="flex items-center justify-center md:justify-start py-5 text-sm text-primary hover:text-orange-600 hover:text-opacity-90"
-              href="/dashboard/settings"
+              to="/settings"
             >
               <div className="flex">
                 <Settings className="sm:mr-0 md:mr-3" size={20} />
@@ -42,9 +40,14 @@ const SideNav = () => {
             </Link>
             <button
               className="flex items-center justify-center md:justify-start py-3 text-sm text-primary hover:text-orange-600 hover:text-opacity-90"
-              onClick={() => {
-                router.push("/auth");
-                logout;
+              onClick={async () => {
+                try {
+                  await api.post("/auth/logout");
+                } catch {
+                  // Clear local session even if the request fails
+                }
+                logout();
+                navigate({ to: "/auth" });
               }}
             >
               <div className="flex">

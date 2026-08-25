@@ -1,15 +1,15 @@
-"use client";
-
-import Image from "next/image";
-import ProductForm from "../../../../modules/products/new/components/product-form";
-import { useParams } from "next/navigation";
+import { Image } from "@unpic/react";
+import { createFileRoute } from "@tanstack/react-router";
+import ProductForm from "@/modules/products/new/components/product-form";
 import { useFetchProductById } from "@/modules/products/queries/fetch-product-by-id";
-import { Product } from "@/types/products";
 import useAuthStore from "@/state-store/auth";
 
-const ProductPage = () => {
-  const { productId } = useParams();
+export const Route = createFileRoute("/_dashboard/products/$productId")({
+  component: ProductPage,
+});
 
+function ProductPage() {
+  const { productId } = Route.useParams();
   const { user } = useAuthStore();
 
   const { data: product, isLoading } = useFetchProductById(
@@ -20,8 +20,6 @@ const ProductPage = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
-  console.log(product);
 
   return (
     <div className="flex flex-row mt-10 gap-10">
@@ -43,6 +41,4 @@ const ProductPage = () => {
       </div>
     </div>
   );
-};
-
-export default ProductPage;
+}

@@ -4,11 +4,12 @@
 **Fulness Ojebiyi**
 
 ## Overview
-Jebbs Deli Admin Dashboard is a comprehensive management interface for the Jebbs Deli food delivery platform. Built with Next.js 14, it provides administrators with powerful tools to manage orders, restaurants, users, and analytics. The dashboard features a modern, responsive design with real-time data visualization and efficient management tools.
+Jebbs Deli Admin Dashboard is a comprehensive management interface for the Jebbs Deli food delivery platform. Built with TanStack Start, it provides administrators with powerful tools to manage orders, restaurants, users, and analytics. The dashboard features a modern, responsive design with real-time data visualization and efficient management tools.
 
 ## Tech Stack
-- **Framework**: Next.js 14
-- **Styling**: Tailwind CSS
+- **Framework**: TanStack Start (Vite + Nitro)
+- **Routing**: TanStack Router
+- **Styling**: Tailwind CSS v4
 - **State Management**: Zustand
 - **UI Components**: Shadcn UI (Radix UI)
 - **Data Fetching**: TanStack Query
@@ -20,7 +21,7 @@ Jebbs Deli Admin Dashboard is a comprehensive management interface for the Jebbs
 
 ## Prerequisites
 - Node.js (v18 or higher)
-- npm or yarn
+- pnpm
 
 ## Local Development Setup
 
@@ -32,33 +33,28 @@ Jebbs Deli Admin Dashboard is a comprehensive management interface for the Jebbs
 
 2. **Install dependencies**
    ```bash
-   npm install
-   # or
-   yarn install
+   pnpm install
    ```
 
 3. **Environment Variables Setup**
-   Create a `.env.local` file in the root directory with the following variables:
+   Create a `.env` file in the root directory with the following variables:
    ```
    # API Configuration
-   NEXT_PUBLIC_API_BASE_URL=http://localhost:3000 || https://your-production-domain.com
-
+   VITE_API_BASE_URL=http://localhost:8080/api
    ```
 
 4. **Run the development server**
    ```bash
-   npm run dev
-   # or
-   yarn dev
+   pnpm dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+5. Open [http://localhost:3001](http://localhost:3001) in your browser
 
 ## Project Structure
 ```
 jebbs-deli-admin/
 ├── src/
-│   ├── app/          # Next.js app directory and page components
+│   ├── app/          # TanStack Router file routes
 │   ├── components/   # Reusable UI components
 │   ├── hooks/        # Custom React hooks
 │   ├── lib/          # Utility functions and configurations
@@ -67,6 +63,7 @@ jebbs-deli-admin/
 │   ├── state-store/  # Zustand state management
 │   ├── types/        # TypeScript type definitions
 │   ├── utils/        # Helper functions and utilities
+│   ├── router.tsx    # Router factory
 ├── public/           # Static assets
 └── ...
 ```
@@ -81,39 +78,11 @@ jebbs-deli-admin/
 - Dark mode support
 - Type-safe development
 
-## Third-Party Libraries
-- **@radix-ui/react-***: Accessible UI components
-- **@tanstack/react-query**: Data fetching and caching
-- **@tanstack/react-table**: Advanced table functionality
-- **chart.js & react-chartjs-2**: Data visualization
-- **recharts**: Additional charting capabilities
-- **zustand**: State management
-- **react-hook-form**: Form handling
-- **zod**: Schema validation
-- **react-dropzone**: File upload service
-- **lucide-react**: Icon library
-- **class-variance-authority**: Component styling utilities
-- **tailwind-merge**: Tailwind CSS class merging
-- **tailwindcss-animate**: Animation utilities
-
-## Development Notes
-- TypeScript is strictly enforced
-- ESLint is configured for code quality
-- Tailwind CSS is used with a custom configuration
-- Modern ESLint configuration
-
-## Deployment
-The application can be deployed on Vercel or any other platform that supports Next.js applications. Make sure to:
-1. Set up all environment variables in your deployment platform
-2. Configure the UploadThing credentials for production
-3. Update any API endpoints to production URLs
-
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+## Scripts
+- `pnpm dev` — start Vite dev server on port 3001
+- `pnpm build` — production build
+- `pnpm start` — run production server (`node .output/server/index.mjs`)
+- `pnpm lint` — run ESLint
 
 ## License
 Copyright (c) 2024 Fulness Ojebiyi

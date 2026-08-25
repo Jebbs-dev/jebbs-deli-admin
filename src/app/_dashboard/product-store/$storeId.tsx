@@ -1,44 +1,37 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import VendorStoreForm from "@/modules/vendor-store/components/vendor-store-form";
-import { useFetchVendorStore } from "@/modules/vendor-store/queries/fetch-vendor-store-by-id";
-import useAuthStore from "@/state-store/auth";
-import Link from "next/link";
-import Image from "next/image";
+import { Image } from "@unpic/react";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import dayjs from "dayjs";
-import { useFetchVendor } from "@/modules/vendor-store/queries/fetch-vendor";
+import { ArrowLeft } from "lucide-react";
 import { useFetchStore } from "@/modules/vendor-store/queries/fetch-vendor-store";
 
-const VendorStore = () => {
-  const { user } = useAuthStore();
+export const Route = createFileRoute("/_dashboard/product-store/$storeId")({
+  component: StoreInformationPage,
+});
 
-  const vendorStore = user?.store;
+function StoreInformationPage() {
+  const { storeId } = Route.useParams();
+  const router = useRouter();
 
-  const { data: vendorStoreData, isLoading } = useFetchStore(
-    String(vendorStore?.id)
-  );
+  const { data: vendorStoreData, isLoading } = useFetchStore(String(storeId));
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  console.log(vendorStoreData);
-
   return (
-    <div className="mx-3 my-10 px-3 md:mx-0 md:px-10 py-6 border rounded-md bg-white dark:bg-background overflow-auto">
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl md:text-2xl font-semibold mb-3">
-          Store Information
-        </h1>
-        <div className="flex flex-col"></div>
+    <div className="mx-3 my-10 px-3 md:mx-0 md:px-10 py-6 border rounded-md bg-white dark:bg-primary/30  overflow-auto">
+      <div className="flex justify-between items-center mb-5">
+        <h1 className="text-xl font-semibold">Store Information</h1>
+        <p
+          className="flex flex-row text-sm justify-center items-center cursor-pointer"
+          onClick={() => {
+            router.history.back();
+          }}
+        >
+          <ArrowLeft size={18} />
+          <span className="ml-2">Back</span>
+        </p>
       </div>
-
-      <Button asChild>
-        <Link href={`/vendor-store/${vendorStore?.id}`} passHref>
-          Edit Store Information
-        </Link>
-      </Button>
 
       <section>
         <div className="my-5 flex flex-col gap-2">
@@ -64,33 +57,33 @@ const VendorStore = () => {
           <div className="flex flex-col gap-4 w-1/2">
             <div>
               <p className="font-semibold">Name</p>
-              <p className="text-black dark:text-gray-300">
+              <p className="text-black">
                 {vendorStoreData?.name || (
-                  <p className="text-gray-500">No infomation added</p>
+                  <span className="text-gray-500">No infomation added</span>
                 )}
               </p>
             </div>
             <div>
               <p className="font-semibold">Email Address</p>
-              <p className="text-black dark:text-gray-300">
+              <p className="text-black">
                 {vendorStoreData?.email || (
-                  <p className="text-gray-500">No infomation added</p>
+                  <span className="text-gray-500">No infomation added</span>
                 )}
               </p>
             </div>
             <div>
               <p className="font-semibold">Address</p>
-              <p className="text-black dark:text-gray-300">
+              <p className="text-black">
                 {vendorStoreData?.address || (
-                  <p className="text-gray-500">No infomation added</p>
+                  <span className="text-gray-500">No infomation added</span>
                 )}
               </p>
             </div>
             <div>
               <p className="font-semibold">Joining Date</p>
-              <p className="text-black dark:text-gray-300">
+              <p className="text-black">
                 {dayjs(vendorStoreData?.createdAt).format("MMMM D, YYYY") || (
-                  <p className="text-gray-500">No infomation added</p>
+                  <span className="text-gray-500">No infomation added</span>
                 )}
               </p>
             </div>
@@ -106,7 +99,7 @@ const VendorStore = () => {
                     className="rounded-full h-10 w-10"
                   />
                 ) : (
-                  <p className=" h-10 w-10 rounded-full flex justify-center items-center bg-gray-300">
+                  <span className=" h-10 w-10 rounded-full flex justify-center items-center bg-gray-300">
                     <Image
                       src="/image-placeholder.png"
                       alt="placeholder"
@@ -114,7 +107,7 @@ const VendorStore = () => {
                       height={40}
                       className="h-7 w-7 opacity-60"
                     />
-                  </p>
+                  </span>
                 )}
               </span>
             </div>
@@ -122,42 +115,40 @@ const VendorStore = () => {
           <div className="flex flex-col gap-4 w-1/2">
             <div>
               <p className="font-semibold">Telephone</p>
-              <p className="text-black dark:text-gray-300">
+              <p className="text-black">
                 {vendorStoreData?.telephone || (
-                  <p className="text-gray-500">No infomation added</p>
+                  <span className="text-gray-500">No infomation added</span>
                 )}
               </p>
             </div>
             <div>
               <p className="font-semibold">Opening Time</p>
-              <p className="text-black dark:text-gray-300">
+              <p className="text-black">
                 {vendorStoreData?.openingTime || (
-                  <p className="text-gray-500">No infomation added</p>
+                  <span className="text-gray-500">No infomation added</span>
                 )}
               </p>
             </div>
             <div>
               <p className="font-semibold">Closing Time</p>
-              <p className="text-black dark:text-gray-300">
+              <p className="text-black">
                 {vendorStoreData?.closingTime || (
-                  <p className="text-gray-500">No infomation added</p>
+                  <span className="text-gray-500">No infomation added</span>
                 )}
               </p>
             </div>
             <div>
               <p className="font-semibold">Preparation Time</p>
-              <p className="text-black dark:text-gray-300">
+              <p className="text-black">
                 {vendorStoreData?.preparationTime || (
-                  <p className="text-gray-500">No infomation added</p>
+                  <span className="text-gray-500">No infomation added</span>
                 )}
               </p>
             </div>
             <div>
               <p className="font-semibold">Tags</p>
               {vendorStoreData?.tags && vendorStoreData.tags.length > 0 ? (
-                <p className="text-black dark:text-gray-300">
-                  {vendorStoreData.tags.join(", ")}
-                </p>
+                <p className="text-black">{vendorStoreData.tags.join(", ")}</p>
               ) : (
                 <p className="text-gray-500">No information added</p>
               )}
@@ -165,9 +156,6 @@ const VendorStore = () => {
           </div>
         </div>
       </section>
-      {/* <VendorStoreForm vendorStoreData={vendorStoreData} /> */}
     </div>
   );
-};
-
-export default VendorStore;
+}

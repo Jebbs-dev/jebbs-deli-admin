@@ -1,13 +1,8 @@
-import Image from "next/image";
 import { Loader } from "lucide-react";
 import { useFetchCustomerCount } from "@/modules/customers/queries/fetch-customer-count";
 import { useFetchOrdersCount } from "@/modules/orders/queries/fetch-order-count";
 import { Order } from "@/types/products";
 import { ArrowUp, ArrowDown, LucideIcon } from "lucide-react";
-import Chart1 from "@/../../public/chart1.png";
-import Chart2 from "@/../../public/chart2.png";
-import Chart3 from "@/../../public/chart3.png";
-import Chart4 from "@/../../public/chart4.png";
 import useUserRole from "@/hooks/useUserRole";
 import { useFetchProductsCountByStore } from "@/modules/products/queries/fetch-products-count";
 import useAuthStore from "@/state-store/auth";
@@ -91,7 +86,7 @@ const SummaryData = () => {
             ) : (
               <p className="text-lg font-medium">₦{totalVendorSum || 0}</p>
             )}
-            <Image src={Chart1} alt="chartline" className="w-12 h-3" />
+            <img src="/chart1.png" alt="chartline" className="w-12 h-3" />
           </div>
         </div>
 
@@ -113,7 +108,7 @@ const SummaryData = () => {
           </div>
           <div className="flex justify-between items-center">
             <p className="text-lg font-medium">{totalSalesCount || 0}</p>
-            <Image src={Chart1} alt="chartline" className="w-12 h-3" />
+            <img src="/chart1.png" alt="chartline" className="w-12 h-3" />
           </div>
         </div>
 
@@ -143,7 +138,7 @@ const SummaryData = () => {
                 ? vendorProductsCount?.totalProducts
                 : 0}
             </p>
-            <Image src={Chart3} alt="chartline" className="w-12 h-3" />
+            <img src="/chart3.png" alt="chartline" className="w-12 h-3" />
           </div>
         </div>
 
@@ -171,7 +166,7 @@ const SummaryData = () => {
                 ? storeOrders?.totalOrders
                 : 0}
             </p>
-            <Image src={Chart4} alt="chartline" className="w-12 h-3" />
+            <img src="/chart4.png" alt="chartline" className="w-12 h-3" />
           </div>
         </div>
       </div>

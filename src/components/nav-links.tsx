@@ -1,5 +1,3 @@
-"use client";
-
 import {
   LayoutDashboard,
   LineChart,
@@ -17,8 +15,7 @@ import {
   ShoppingBasket,
 } from "lucide-react";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useRouterState } from "@tanstack/react-router";
 import clsx from "clsx";
 import useUserRole from "@/hooks/useUserRole";
 
@@ -31,15 +28,13 @@ const links = [
   { name: "Customers", href: "/customers", icon: Users },
   { name: "Vendors", href: "/vendors", icon: ShoppingBasket },
   { name: "ProductStore", href: "/product-store", icon: ShoppingBag },
-];
+] as const;
 
 const NavLinks = () => {
-  const pathname = usePathname();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const userType = useUserRole();
 
-  // Filter links based on user role
   const filteredLinks = links.filter((link) => {
-    // If user is a vendor, hide Analytics and Customers
     if (userType === "IS_VENDOR") {
       return (
         link.name !== "Analytics" &&
@@ -55,7 +50,6 @@ const NavLinks = () => {
         link.name !== "Analytics"
       );
     }
-    // Show all links for other user types
     return true;
   });
 
@@ -66,7 +60,7 @@ const NavLinks = () => {
         return (
           <Link
             key={link.name}
-            href={link.href}
+            to={link.href}
             className={clsx(
               "flex gap-0 px-1 md:px-5 items-center justify-center md:justify-start text-sm text-primary hover:text-orange-600 hover:text-opacity-90"
             )}
@@ -86,32 +80,6 @@ const NavLinks = () => {
           </Link>
         );
       })}
-
-      {/* <div
-        id="slider"
-        className="flex p-3 space-x-3 w-full auto-rows-fr overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide md:hidden"
-      >
-        {filteredLinks.map((link) => {
-          const LinkIcon = link.icon;
-          return (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={clsx(
-                "h-40 flex justify-center items-center rounded-md text-muted-foreground font-medium border border-primary hover:bg-blue-500 hover:text-white md:hidden",
-                {
-                  "text-white bg-primary font-medium": pathname === link.href,
-                }
-              )}
-            >
-              <div className="flex flex-col w-[90vw] space-y-2 justify-center items-center">
-                <LinkIcon size={40} />
-                <p className="text-2xl">{link.name}</p>
-              </div>
-            </Link>
-          );
-        })}
-      </div> */}
     </>
   );
 };

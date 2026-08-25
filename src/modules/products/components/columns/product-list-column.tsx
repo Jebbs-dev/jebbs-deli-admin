@@ -1,8 +1,6 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 import SortProductStatus from "../sort-status";
-import Image from "next/image";
+import { Image } from "@unpic/react";
 import ProductTableActions from "./product-table-actions";
 import { Product } from "@/types/products";
 
@@ -16,9 +14,7 @@ export const columns: ColumnDef<Product>[] = [
     header: "Image",
     cell: ({ row }) => (
       <Image
-        src={row.getValue("image") || 
-          "/assets/svg/placeholder.svg"}
-        
+        src={row.getValue("image") || "/assets/svg/placeholder.svg"}
         alt={row.getValue("name")}
         width={40}
         height={40}

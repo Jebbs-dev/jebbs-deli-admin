@@ -1,7 +1,7 @@
 import { Product } from "@/types/products";
 import api from "@/utils/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "@tanstack/react-router";
 
 type UpdateProductProps = Omit<Product, "image"> & {
     image: File | null;
@@ -10,7 +10,7 @@ type UpdateProductProps = Omit<Product, "image"> & {
 
 export const useUpdateProduct = (productId: string) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (data: FormData) => {
@@ -19,7 +19,7 @@ export const useUpdateProduct = (productId: string) => {
     },
     onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
-      router.push("/products");
+      navigate({ to: "/products" });
     },
     onError: (error) => {
       console.error("Error updating product:", error);

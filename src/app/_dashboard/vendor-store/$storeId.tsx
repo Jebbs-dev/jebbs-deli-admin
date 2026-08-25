@@ -1,17 +1,16 @@
-"use client";
-
 import VendorStoreForm from "@/modules/vendor-store/components/vendor-store-form";
 import { useFetchVendorStore } from "@/modules/vendor-store/queries/fetch-vendor-store-by-id";
 import useAuthStore from "@/state-store/auth";
 import { ArrowLeft } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import React from "react";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 
-const VendorStoreInfo = () => {
+export const Route = createFileRoute("/_dashboard/vendor-store/$storeId")({
+  component: VendorStoreInfo,
+});
+
+function VendorStoreInfo() {
   const { user } = useAuthStore();
-
-  const { storeId } = useParams();
-
+  const { storeId } = Route.useParams();
   const router = useRouter();
 
   const { data: vendorStoreData, isLoading } = useFetchVendorStore(
@@ -29,15 +28,14 @@ const VendorStoreInfo = () => {
         <div className="flex justify-between items-center mb-5">
           <h1 className="text-xl font-semibold">Store Information</h1>
           <p
-            className="flex flex-row text-sm justify-center items-center"
+            className="flex flex-row text-sm justify-center items-center cursor-pointer"
             onClick={() => {
-              router.back();
+              router.history.back();
             }}
           >
             <ArrowLeft size={18} />
             <span className="ml-2">Back</span>
           </p>
-          {/* <div className="flex flex-col"></div> */}
         </div>
         <div className="overflow-auto text-sm md:text-base">
           <VendorStoreForm vendorStoreData={vendorStoreData} />
@@ -45,6 +43,4 @@ const VendorStoreInfo = () => {
       </div>
     </div>
   );
-};
-
-export default VendorStoreInfo;
+}

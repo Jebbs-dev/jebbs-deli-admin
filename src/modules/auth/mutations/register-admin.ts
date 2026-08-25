@@ -2,12 +2,12 @@ import { User } from "@/types/user";
 import api from "@/utils/api";
 
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "@tanstack/react-router";
 import useAuthStore from "@/state-store/auth";
 import { useToast } from "@/hooks/use-toast";
 
 export const useCreateAdmin = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const { toast } = useToast();
 
@@ -19,7 +19,7 @@ export const useCreateAdmin = () => {
     onSuccess: (data) => {
       if (data) {
         setTimeout(() => {
-          router.push("/auth");
+          navigate({ to: "/auth" });
         }, 300);
         // toast({
         //   title: "Success",

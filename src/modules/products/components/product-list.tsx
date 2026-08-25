@@ -1,34 +1,11 @@
 "use client";
 
-import { CalendarIcon, Plus, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { columns as ProductListColumns } from "./columns/product-list-column";
-// import products from "../data/product-list-data";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { useRouter } from "next/navigation";
 import useAuthStore from "@/state-store/auth";
 import { useQueryParamaters } from "@/state-store/use-query-params";
 import { useFetchFilteredProductByStoreId } from "../queries/fetch-filtered-products-by-storeid";
-import { useEffect, useState } from "react";
-import { useFetchFilteredProducts } from "../queries/fetch-products";
 import { useDebounce } from "@/hooks/use-debounce";
 import { DataTable } from "./columns/product-datatable";
-import { formatDate } from "@/utils/format-date";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
-import { addDays, format } from "date-fns";
-import { DateRange } from "react-day-picker";
 import TableFilters from "@/components/date-filters";
 
 export const ProductListSkeleton = () => (
@@ -73,8 +50,6 @@ const ProductList = () => {
 
   // const { data: fetchProducts, isLoading: isProductsLoading } =
   //   useFetchFilteredProducts();
-
-  const router = useRouter();
 
   return (
     <div className="mx-3 px-3 md:mx-0 md:px-10 py-4 border rounded-md bg-white dark:bg-background overflow-auto">

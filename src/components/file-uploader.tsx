@@ -1,7 +1,7 @@
 "use client";
 
 import { convertFileToUrl } from "@/lib/utils";
-import Image from "next/image";
+import { Image } from "@unpic/react";
 import { FunctionComponent, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
@@ -15,11 +15,14 @@ const FileUploader: FunctionComponent<FileUploaderProps> = ({
   files,
   onChange,
 }) => {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    onChange(acceptedFiles);
-  }, [onChange]);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      onChange(acceptedFiles);
+    },
+    [onChange]
+  );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleRemoveFile = (index: number) => {
     if (files) {
@@ -29,7 +32,10 @@ const FileUploader: FunctionComponent<FileUploaderProps> = ({
   };
 
   return (
-    <div {...getRootProps()} className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-md border border-primary p-5">
+    <div
+      {...getRootProps()}
+      className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-md border border-primary p-5"
+    >
       <input {...getInputProps()} />
       {files && files.length > 0 ? (
         files.map((file, index) => (
@@ -59,8 +65,8 @@ const FileUploader: FunctionComponent<FileUploaderProps> = ({
           />
           <div className="file-upload_label">
             <p className="text-14-regular">
-              <span className="text-green-500">Click to upload</span> or drag
-              and drop
+              <span className="text-green-500">Click to upload</span> or drag and
+              drop
             </p>
             <p>SVG, PNG, JPG or GIF (max. 800x400px)</p>
           </div>

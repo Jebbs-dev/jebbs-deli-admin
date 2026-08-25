@@ -1,63 +1,59 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { FaSpinner } from "react-icons/fa";
 import useAuthStore from "@/state-store/auth";
+import api from "@/utils/api";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const { user, isLoggedIn, login } = useAuthStore();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { login, logout } = useAuthStore();
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {
-    // Check if we have userInfo in localStorage first
-    const checkUserInfoInLocalStorage = () => {
+    let cancelled = false;
+
+    const hydrateSession = async () => {
       try {
-        const userInfoStr = localStorage.getItem("userInfo");
-        if (userInfoStr) {
-          const userInfo = JSON.parse(userInfoStr);
+        const { data } = await api.get("/auth/profile");
+        if (cancelled) return;
 
-          // Check if we have valid tokens
-          if (userInfo.accessToken) {
-            // If we have valid info but the auth store is not updated, update it
-            if (!isLoggedIn) {
-              if (userInfo.user) {
-                login(userInfo.user);
-              }
-            }
-
-            // Only navigate away from auth pages
-            if (pathname.startsWith("/auth")) {
-              router.replace("/");
-            }
-
-            setCheckingAuth(false);
-            return true;
+        if (data?.user) {
+          login(data.user);
+          if (pathname.startsWith("/auth")) {
+            navigate({ to: "/", replace: true });
           }
         }
-        return false;
-      } catch (error) {
-        console.error("Error checking localStorage:", error);
-        return false;
+      } catch {
+        if (cancelled) return;
+        logout();
+        if (!pathname.startsWith("/auth")) {
+          navigate({ to: "/auth", replace: true });
+        }
+      } finally {
+        if (!cancelled) {
+          setCheckingAuth(false);
+        }
       }
     };
 
-    // If not logged in according to the store, check localStorage
-    if (!isLoggedIn) {
-      const hasValidUserInfo = checkUserInfoInLocalStorage();
+    void hydrateSession();
 
-      // Only redirect to auth if no valid userInfo was found
-      if (!hasValidUserInfo && !pathname.startsWith("/auth")) {
-        router.replace("/auth");
-      }
-    }
+    const onSessionExpired = () => {
+      logout();
+      navigate({ to: "/auth", replace: true });
+    };
 
-    setCheckingAuth(false);
-  }, [isLoggedIn, user, router, pathname, login]);
+    window.addEventListener("auth:session-expired", onSessionExpired);
 
-  // Prevent rendering anything while checking authentication
+    return () => {
+      cancelled = true;
+      window.removeEventListener("auth:session-expired", onSessionExpired);
+    };
+    // Hydrate once on mount; pathname is read for initial redirect only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (checkingAuth) {
     return (
       <div className="flex justify-center items-center h-screen">

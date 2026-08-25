@@ -1,10 +1,10 @@
 import { StoreCreate } from "@/types/store";
 import api from "@/utils/api";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "@tanstack/react-router";
 
 export const useDeleteStore = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (storeId: string) => {
@@ -12,7 +12,7 @@ export const useDeleteStore = () => {
       return response.data;
     },
     onSuccess: () => {
-      router.push("/");
+      navigate({ to: "/" });
     },
     onError: (error) => {
       console.error("Login failed:", error);

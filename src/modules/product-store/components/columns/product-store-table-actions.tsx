@@ -1,13 +1,11 @@
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Product } from "@/types/products";
 import { MoreHorizontal } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import { Store } from "@/types/store";
 
 interface ProductStoreTableProps {
@@ -25,7 +23,12 @@ const ProductStoreTableActions = ({ data }: ProductStoreTableProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link href={`/product-store/${data.id}`}>View Store</Link>
+          <Link
+            to="/product-store/$storeId"
+            params={{ storeId: String(data.id) }}
+          >
+            View Store
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <button>Delete Store</button>

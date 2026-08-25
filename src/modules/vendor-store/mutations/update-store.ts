@@ -1,10 +1,10 @@
 import { Store, StoreCreate } from "@/types/store";
 import api from "@/utils/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "@tanstack/react-router";
 
 export const useUpdateStore = (storeId: string) => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -13,7 +13,7 @@ export const useUpdateStore = (storeId: string) => {
       return response.data;
     },
     onSuccess: () => {
-      router.push("/vendor-store");
+      navigate({ to: "/vendor-store" });
       queryClient.invalidateQueries({ queryKey: ["vendor-store"] });
     },
     onError: (error) => {

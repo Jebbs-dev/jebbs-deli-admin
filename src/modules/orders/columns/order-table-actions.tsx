@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Order } from "@/types/products";
 import { MoreHorizontal } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { Link } from "@tanstack/react-router";
 
 interface OrderTableInterface {
   data: Order;
@@ -25,10 +23,20 @@ const OrderTableActions = ({ data }: OrderTableInterface) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link href={`/products/${data.id}`}>View order details</Link>
+          <Link
+            to="/products/$productId"
+            params={{ productId: String(data.id) }}
+          >
+            View order details
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={`/products/${data.id}`}>Delete order</Link>
+          <Link
+            to="/products/$productId"
+            params={{ productId: String(data.id) }}
+          >
+            Delete order
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

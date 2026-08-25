@@ -20,7 +20,6 @@ import { Label } from "@/components/ui/label";
 import { useCreateVendor } from "../../mutations/register-vendor";
 import { FaSpinner } from "react-icons/fa";
 import { useLoginVendor } from "../../mutations/login-vendor";
-import { usePathname } from "next/navigation";
 import { useCreateAdmin } from "../../mutations/register-admin";
 
 interface AuthFormProps {
@@ -40,7 +39,6 @@ const loginDefaultValues = {
 
 const AuthForm = ({ variant }: AuthFormProps) => {
   const { toast } = useToast();
-  const pathname = usePathname();
 
   const { mutateAsync: loginUser, isPending } = useLoginUser();
   // const { mutateAsync: loginVendor, isPending: isVendorPending } =

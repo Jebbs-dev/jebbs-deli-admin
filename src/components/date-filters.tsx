@@ -7,7 +7,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "@tanstack/react-router";
 import useAuthStore from "@/state-store/auth";
 import { useQueryParamaters } from "@/state-store/use-query-params";
 import { useEffect, useState } from "react";
@@ -44,7 +44,7 @@ const TableFilters = ({
   //   to: addDays(new Date(), 20),
   // });
 
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleFilterChange = async (value: string) => {
     setSelectedFilter(value);
@@ -143,7 +143,7 @@ const TableFilters = ({
 
             {canAddNew && (
               <Button
-                onClick={() => router.push("/products/new")}
+                onClick={() => navigate({ to: "/products/new" })}
                 className="lg:hidden block"
               >
                 <span className="">
@@ -246,7 +246,7 @@ const TableFilters = ({
 
         {canAddNew && (
           <Button
-            onClick={() => router.push(`${formLink}`)}
+            onClick={() => navigate({ to: `${formLink}` })}
             className="hidden lg:flex"
           >
             <span className="lg:mr-2">

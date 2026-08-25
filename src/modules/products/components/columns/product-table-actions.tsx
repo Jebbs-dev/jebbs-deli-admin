@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Product } from "@/types/products";
 import { MoreHorizontal } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { Link } from "@tanstack/react-router";
 
 interface ProductTableInterface {
   data: Product;
@@ -25,10 +23,20 @@ const ProductTableActions = ({ data }: ProductTableInterface) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link href={`/products/${data.id}`}>Edit Product</Link>
+          <Link
+            to="/products/$productId"
+            params={{ productId: String(data.id) }}
+          >
+            Edit Product
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={`/products/${data.id}`}>Delete Product</Link>
+          <Link
+            to="/products/$productId"
+            params={{ productId: String(data.id) }}
+          >
+            Delete Product
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

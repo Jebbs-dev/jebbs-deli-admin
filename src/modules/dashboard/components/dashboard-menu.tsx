@@ -1,9 +1,7 @@
-"use client";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Bell, LogOut, Search, Settings, User } from "lucide-react";
-import Image from "next/image";
+import { Image } from "@unpic/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,14 +27,6 @@ const DashboardMenu = () => {
           Welcome back to your Dashboard
         </p>
       </div>
-      {/* <div className="hidden xl:flex items-center relative">
-        <Search className="absolute ml-2 text-primary" size={20} />
-        <Input
-          type="text"
-          className="pl-10 md:w-80 border-primary"
-          placeholder="Search for meals..."
-        />
-      </div> */}
       <div className="flex space-x-1 md:space-x-3">
         <ModeToggle />
 
@@ -54,8 +44,8 @@ const DashboardMenu = () => {
               src="/ai-avatar.webp"
               alt="User avatar"
               className="h-7 w-7 md:h-10 md:w-10 rounded-full object-cover"
-              width={20}
-              height={20}
+              width={40}
+              height={40}
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40">
