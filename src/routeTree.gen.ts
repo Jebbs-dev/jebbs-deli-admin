@@ -15,9 +15,12 @@ import { Route as DashboardIndexRouteImport } from './app/_dashboard/index'
 import { Route as DashboardAdminsRouteImport } from './app/_dashboard/admins'
 import { Route as DashboardAnalyticsRouteImport } from './app/_dashboard/analytics'
 import { Route as DashboardCustomersRouteImport } from './app/_dashboard/customers'
-import { Route as DashboardOrdersRouteImport } from './app/_dashboard/orders'
 import { Route as DashboardSettingsRouteImport } from './app/_dashboard/settings'
 import { Route as DashboardVendorsRouteImport } from './app/_dashboard/vendors'
+import { Route as DashboardDeliveriesIndexRouteImport } from './app/_dashboard/deliveries/index'
+import { Route as DashboardDeliveriesHistoryRouteImport } from './app/_dashboard/deliveries/history'
+import { Route as DashboardOrdersIndexRouteImport } from './app/_dashboard/orders/index'
+import { Route as DashboardOrdersOrderIdRouteImport } from './app/_dashboard/orders/$orderId'
 import { Route as DashboardProductStoreIndexRouteImport } from './app/_dashboard/product-store/index'
 import { Route as DashboardProductStoreStoreIdRouteImport } from './app/_dashboard/product-store/$storeId'
 import { Route as DashboardProductsIndexRouteImport } from './app/_dashboard/products/index'
@@ -54,11 +57,6 @@ const DashboardCustomersRoute = DashboardCustomersRouteImport.update({
   path: '/customers',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardOrdersRoute = DashboardOrdersRouteImport.update({
-  id: '/orders',
-  path: '/orders',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -67,6 +65,28 @@ const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
 const DashboardVendorsRoute = DashboardVendorsRouteImport.update({
   id: '/vendors',
   path: '/vendors',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardDeliveriesIndexRoute =
+  DashboardDeliveriesIndexRouteImport.update({
+    id: '/deliveries/',
+    path: '/deliveries/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardDeliveriesHistoryRoute =
+  DashboardDeliveriesHistoryRouteImport.update({
+    id: '/deliveries/history',
+    path: '/deliveries/history',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardOrdersIndexRoute = DashboardOrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardOrdersOrderIdRoute = DashboardOrdersOrderIdRouteImport.update({
+  id: '/orders/$orderId',
+  path: '/orders/$orderId',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardProductStoreIndexRoute =
@@ -111,12 +131,15 @@ export interface FileRoutesByFullPath {
   '/admins': typeof DashboardAdminsRoute
   '/analytics': typeof DashboardAnalyticsRoute
   '/customers': typeof DashboardCustomersRoute
-  '/orders': typeof DashboardOrdersRoute
   '/settings': typeof DashboardSettingsRoute
   '/vendors': typeof DashboardVendorsRoute
+  '/deliveries/history': typeof DashboardDeliveriesHistoryRoute
+  '/orders/$orderId': typeof DashboardOrdersOrderIdRoute
   '/product-store/$storeId': typeof DashboardProductStoreStoreIdRoute
   '/products/$productId': typeof DashboardProductsProductIdRoute
   '/vendor-store/$storeId': typeof DashboardVendorStoreStoreIdRoute
+  '/deliveries/': typeof DashboardDeliveriesIndexRoute
+  '/orders/': typeof DashboardOrdersIndexRoute
   '/product-store/': typeof DashboardProductStoreIndexRoute
   '/products/': typeof DashboardProductsIndexRoute
   '/vendor-store/': typeof DashboardVendorStoreIndexRoute
@@ -126,13 +149,16 @@ export interface FileRoutesByTo {
   '/admins': typeof DashboardAdminsRoute
   '/analytics': typeof DashboardAnalyticsRoute
   '/customers': typeof DashboardCustomersRoute
-  '/orders': typeof DashboardOrdersRoute
   '/settings': typeof DashboardSettingsRoute
   '/vendors': typeof DashboardVendorsRoute
   '/': typeof DashboardIndexRoute
+  '/deliveries/history': typeof DashboardDeliveriesHistoryRoute
+  '/orders/$orderId': typeof DashboardOrdersOrderIdRoute
   '/product-store/$storeId': typeof DashboardProductStoreStoreIdRoute
   '/products/$productId': typeof DashboardProductsProductIdRoute
   '/vendor-store/$storeId': typeof DashboardVendorStoreStoreIdRoute
+  '/deliveries': typeof DashboardDeliveriesIndexRoute
+  '/orders': typeof DashboardOrdersIndexRoute
   '/product-store': typeof DashboardProductStoreIndexRoute
   '/products': typeof DashboardProductsIndexRoute
   '/vendor-store': typeof DashboardVendorStoreIndexRoute
@@ -144,13 +170,16 @@ export interface FileRoutesById {
   '/_dashboard/admins': typeof DashboardAdminsRoute
   '/_dashboard/analytics': typeof DashboardAnalyticsRoute
   '/_dashboard/customers': typeof DashboardCustomersRoute
-  '/_dashboard/orders': typeof DashboardOrdersRoute
   '/_dashboard/settings': typeof DashboardSettingsRoute
   '/_dashboard/vendors': typeof DashboardVendorsRoute
   '/_dashboard/': typeof DashboardIndexRoute
+  '/_dashboard/deliveries/history': typeof DashboardDeliveriesHistoryRoute
+  '/_dashboard/orders/$orderId': typeof DashboardOrdersOrderIdRoute
   '/_dashboard/product-store/$storeId': typeof DashboardProductStoreStoreIdRoute
   '/_dashboard/products/$productId': typeof DashboardProductsProductIdRoute
   '/_dashboard/vendor-store/$storeId': typeof DashboardVendorStoreStoreIdRoute
+  '/_dashboard/deliveries/': typeof DashboardDeliveriesIndexRoute
+  '/_dashboard/orders/': typeof DashboardOrdersIndexRoute
   '/_dashboard/product-store/': typeof DashboardProductStoreIndexRoute
   '/_dashboard/products/': typeof DashboardProductsIndexRoute
   '/_dashboard/vendor-store/': typeof DashboardVendorStoreIndexRoute
@@ -163,12 +192,15 @@ export interface FileRouteTypes {
     | '/admins'
     | '/analytics'
     | '/customers'
-    | '/orders'
     | '/settings'
     | '/vendors'
+    | '/deliveries/history'
+    | '/orders/$orderId'
     | '/product-store/$storeId'
     | '/products/$productId'
     | '/vendor-store/$storeId'
+    | '/deliveries/'
+    | '/orders/'
     | '/product-store/'
     | '/products/'
     | '/vendor-store/'
@@ -178,13 +210,16 @@ export interface FileRouteTypes {
     | '/admins'
     | '/analytics'
     | '/customers'
-    | '/orders'
     | '/settings'
     | '/vendors'
     | '/'
+    | '/deliveries/history'
+    | '/orders/$orderId'
     | '/product-store/$storeId'
     | '/products/$productId'
     | '/vendor-store/$storeId'
+    | '/deliveries'
+    | '/orders'
     | '/product-store'
     | '/products'
     | '/vendor-store'
@@ -195,13 +230,16 @@ export interface FileRouteTypes {
     | '/_dashboard/admins'
     | '/_dashboard/analytics'
     | '/_dashboard/customers'
-    | '/_dashboard/orders'
     | '/_dashboard/settings'
     | '/_dashboard/vendors'
     | '/_dashboard/'
+    | '/_dashboard/deliveries/history'
+    | '/_dashboard/orders/$orderId'
     | '/_dashboard/product-store/$storeId'
     | '/_dashboard/products/$productId'
     | '/_dashboard/vendor-store/$storeId'
+    | '/_dashboard/deliveries/'
+    | '/_dashboard/orders/'
     | '/_dashboard/product-store/'
     | '/_dashboard/products/'
     | '/_dashboard/vendor-store/'
@@ -256,13 +294,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardCustomersRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/_dashboard/orders': {
-      id: '/_dashboard/orders'
-      path: '/orders'
-      fullPath: '/orders'
-      preLoaderRoute: typeof DashboardOrdersRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
     '/_dashboard/settings': {
       id: '/_dashboard/settings'
       path: '/settings'
@@ -275,6 +306,34 @@ declare module '@tanstack/react-router' {
       path: '/vendors'
       fullPath: '/vendors'
       preLoaderRoute: typeof DashboardVendorsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/deliveries/': {
+      id: '/_dashboard/deliveries/'
+      path: '/deliveries'
+      fullPath: '/deliveries/'
+      preLoaderRoute: typeof DashboardDeliveriesIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/deliveries/history': {
+      id: '/_dashboard/deliveries/history'
+      path: '/deliveries/history'
+      fullPath: '/deliveries/history'
+      preLoaderRoute: typeof DashboardDeliveriesHistoryRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/orders/': {
+      id: '/_dashboard/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof DashboardOrdersIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/orders/$orderId': {
+      id: '/_dashboard/orders/$orderId'
+      path: '/orders/$orderId'
+      fullPath: '/orders/$orderId'
+      preLoaderRoute: typeof DashboardOrdersOrderIdRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/_dashboard/product-store/': {
@@ -326,13 +385,16 @@ interface DashboardRouteRouteChildren {
   DashboardAdminsRoute: typeof DashboardAdminsRoute
   DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
   DashboardCustomersRoute: typeof DashboardCustomersRoute
-  DashboardOrdersRoute: typeof DashboardOrdersRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardVendorsRoute: typeof DashboardVendorsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardDeliveriesHistoryRoute: typeof DashboardDeliveriesHistoryRoute
+  DashboardOrdersOrderIdRoute: typeof DashboardOrdersOrderIdRoute
   DashboardProductStoreStoreIdRoute: typeof DashboardProductStoreStoreIdRoute
   DashboardProductsProductIdRoute: typeof DashboardProductsProductIdRoute
   DashboardVendorStoreStoreIdRoute: typeof DashboardVendorStoreStoreIdRoute
+  DashboardDeliveriesIndexRoute: typeof DashboardDeliveriesIndexRoute
+  DashboardOrdersIndexRoute: typeof DashboardOrdersIndexRoute
   DashboardProductStoreIndexRoute: typeof DashboardProductStoreIndexRoute
   DashboardProductsIndexRoute: typeof DashboardProductsIndexRoute
   DashboardVendorStoreIndexRoute: typeof DashboardVendorStoreIndexRoute
@@ -342,13 +404,16 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAdminsRoute: DashboardAdminsRoute,
   DashboardAnalyticsRoute: DashboardAnalyticsRoute,
   DashboardCustomersRoute: DashboardCustomersRoute,
-  DashboardOrdersRoute: DashboardOrdersRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardVendorsRoute: DashboardVendorsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardDeliveriesHistoryRoute: DashboardDeliveriesHistoryRoute,
+  DashboardOrdersOrderIdRoute: DashboardOrdersOrderIdRoute,
   DashboardProductStoreStoreIdRoute: DashboardProductStoreStoreIdRoute,
   DashboardProductsProductIdRoute: DashboardProductsProductIdRoute,
   DashboardVendorStoreStoreIdRoute: DashboardVendorStoreStoreIdRoute,
+  DashboardDeliveriesIndexRoute: DashboardDeliveriesIndexRoute,
+  DashboardOrdersIndexRoute: DashboardOrdersIndexRoute,
   DashboardProductStoreIndexRoute: DashboardProductStoreIndexRoute,
   DashboardProductsIndexRoute: DashboardProductsIndexRoute,
   DashboardVendorStoreIndexRoute: DashboardVendorStoreIndexRoute,

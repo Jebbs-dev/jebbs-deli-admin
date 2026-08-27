@@ -1,26 +1,26 @@
-import { StoreCreate } from "@/types/store";
 import api from "@/utils/api";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 
 export const useDeleteOrder = () => {
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   return useMutation({
     mutationFn: async (orderId: string) => {
-      const response = await api.delete(`/orders/${orderId}`);
+      const response = await api.delete(`/v1/orders/${orderId}`);
       return response.data;
     },
     onSuccess: () => {
-      navigate({ to: "/" });
+      void queryClient.invalidateQueries({ queryKey: ["orders"] });
+      void queryClient.invalidateQueries({ queryKey: ["order"] });
     },
-    onError: (error) => {
-      console.error("Login failed:", error);
-      // toast({
-      //   variant: "destructive",
-      //   title: "Error",
-      //   description: error.message,
-      // });
+    onError: (error: Error) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
     },
   });
 };

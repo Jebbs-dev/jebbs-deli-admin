@@ -15,7 +15,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
     const hydrateSession = async () => {
       try {
-        const { data } = await api.get("/auth/profile");
+        const { data } = await api.get("/v1/auth/me");
         if (cancelled) return;
 
         if (data?.user) {

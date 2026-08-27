@@ -4,8 +4,12 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import useAuthStore from "@/state-store/auth";
 import { useFetchStore } from "@/modules/vendor-store/queries/fetch-vendor-store";
+import { requireRoles } from "@/utils/require-roles";
+import StoreWalletSection from "@/modules/settlement/components/store-wallet-section";
+import StorePaymentHistory from "@/modules/settlement/components/store-payment-history";
 
 export const Route = createFileRoute("/_dashboard/vendor-store/")({
+  beforeLoad: requireRoles(["IS_VENDOR"]),
   component: VendorStore,
 });
 
@@ -38,6 +42,13 @@ function VendorStore() {
           Edit Store Information
         </Link>
       </Button>
+
+      {vendorStore?.id && (
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <StoreWalletSection storeId={String(vendorStore.id)} />
+          <StorePaymentHistory storeId={String(vendorStore.id)} />
+        </div>
+      )}
 
       <section>
         <div className="my-5 flex flex-col gap-2">

@@ -1,6 +1,5 @@
 "use client";
 
-import { orders } from "@/modules/dashboard/data/recent-orders";
 import { columns as recentOrderColumns } from "@/modules/orders/columns/store-orders-columns";
 import TableFilters from "@/components/date-filters";
 import useAuthStore from "@/state-store/auth";
@@ -11,7 +10,6 @@ import { DataTable } from "../columns/order-datatable";
 
 import useUserRole from "@/hooks/useUserRole";
 import { useFetchFilteredOrders } from "../queries/fetch-filtered-orders";
-import { FaSpinner } from "react-icons/fa";
 
 const RecentOrders = () => {
   const { user } = useAuthStore();
@@ -60,7 +58,7 @@ const RecentOrders = () => {
       {userType === "IS_VENDOR" && !isLoading ? (
         <DataTable
           columns={recentOrderColumns}
-          data={ordersByStore?.orders || []}
+          data={ordersByStore?.items || []}
           total={ordersByStore?.total}
           limit={ordersByStore?.limit}
           offset={ordersByStore?.offset}
@@ -73,7 +71,7 @@ const RecentOrders = () => {
       ) : (
         <DataTable
           columns={recentOrderColumns}
-          data={allOrders?.orders || []}
+          data={allOrders?.items || []}
           total={allOrders?.total}
           limit={allOrders?.limit}
           offset={allOrders?.offset}

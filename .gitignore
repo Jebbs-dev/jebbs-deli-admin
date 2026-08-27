@@ -45,3 +45,6 @@ yarn-error.log*
 
 #tanstack
 .tanstack
+
+/images/generated-*
+admin-screens.pen

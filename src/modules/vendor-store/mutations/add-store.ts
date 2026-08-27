@@ -8,7 +8,7 @@ export const useCreateStore = () => {
 
   return useMutation({
     mutationFn: async (store: Omit<StoreCreate, "createdAt" | "updatedAt" | "id">) => {
-      const response = await api.post("/store/register", store);
+      const response = await api.post("/v1/stores", store);
       return response.data;
     },
     onSuccess: () => {

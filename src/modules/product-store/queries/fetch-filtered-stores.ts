@@ -5,11 +5,15 @@ import useAuthStore from "@/state-store/auth";
 import useUserRole from "@/hooks/useUserRole";
 
 export type StoreParams = {
+  q?: string;
   search?: string;
   limit: number;
   offset: number;
+  sort?: string;
   sortBy?: string;
   sortOrder?: string;
+  createdFrom?: string;
+  createdTo?: string;
   startDate?: string;
   endDate?: string;
   [key: string]: string | number | boolean | undefined;
@@ -25,7 +29,7 @@ export const useFetchFilteredStores = (params: StoreParams) => {
     queryFn:
       isLoggedIn && userType === "IS_ADMIN"
         ? async () => {
-            const response = await api.get("/store", { params });
+            const response = await api.get("/v1/stores", { params });
             return response.data;
           }
         : skipToken,

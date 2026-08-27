@@ -1,21 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Bar,
   BarChart,
   CartesianGrid,
-  Line,
   XAxis,
   YAxis,
   AreaChart,
   Area,
 } from "recharts";
-
-import { dailySales } from "../data/dummy-sales-data";
-import { weeklySales } from "../data/dummy-sales-data";
-import { monthlySales } from "../data/dummy-sales-data";
-import { yearlySales } from "../data/dummy-sales-data";
 
 import {
   Card,
@@ -34,10 +28,15 @@ import {
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart3, LineChart } from "lucide-react";
+import {
+  AnalyticsRange,
+  useFetchAnalyticsSummary,
+} from "@/modules/analytics/queries/fetch-analytics-summary";
+import useUserRole from "@/hooks/useUserRole";
 
 const chartConfig = {
   views: {
-    label: "No of Sales",
+    label: "Sales",
   },
   daily: {
     label: "Daily Sales",
@@ -57,96 +56,106 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
- const SalesData =()=> {
-  const [activeChart, setActiveChart] =
-    useState<keyof typeof chartConfig>("daily");
+const rangeToChartKey: Record<
+  AnalyticsRange,
+  keyof typeof chartConfig
+> = {
+  "1d": "daily",
+  "1w": "weekly",
+  "1m": "monthly",
+  "1y": "yearly",
+};
 
-  const [salesData, setSalesData] = useState(dailySales);
+const SalesData = () => {
+  const userType = useUserRole();
+  const [range, setRange] = useState<AnalyticsRange>("1d");
   const [selectLineChart, setSelectLineChart] = useState(false);
 
-  const total = useMemo(
-    () => ({
-      daily: dailySales.reduce((acc, curr) => acc + curr.value, 0),
-      weekly: weeklySales.reduce((acc, curr) => acc + curr.value, 0),
-      monthly: monthlySales.reduce((acc, curr) => acc + curr.value, 0),
-      yearly: yearlySales.reduce((acc, curr) => acc + curr.value, 0),
-    }),
-    []
+  const { data, isLoading } = useFetchAnalyticsSummary(range);
+
+  const activeChart = rangeToChartKey[range];
+
+  const salesData = useMemo(
+    () =>
+      (data?.series ?? []).map((point) => ({
+        saleTime: point.label,
+        value: point.value,
+      })),
+    [data?.series]
   );
 
+  if (userType === "IS_RIDER") {
+    return null;
+  }
+
   return (
-    <Tabs defaultValue="daily">
+    <div>
       <Card className="">
         <CardHeader className="grid grid-cols-3 space-y-0 p-0">
           <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
             <CardTitle className="text-primary">Sales Data</CardTitle>
-            <CardDescription>Showing total sales</CardDescription>
+            <CardDescription>
+              {isLoading
+                ? "Loading sales…"
+                : `Showing total sales · ₦${Number(
+                    data?.summary.revenue ?? 0
+                  ).toLocaleString()}`}
+            </CardDescription>
           </div>
           <div className="py-5 px-6">
-            <TabsList className="flex w-[125px] relative h-8 mb-4">
-              <TabsTrigger
-                className="px-2 py-1 text-xs font-medium"
-                value="daily"
-                onClick={() => {
-                  setActiveChart("daily");
-                  setSalesData(dailySales);
-                }}
-              >
-                1d
-              </TabsTrigger>
-              <TabsTrigger
-                className="px-2 py-1 text-xs font-medium"
-                value="weekly"
-                onClick={() => {
-                  setActiveChart("weekly");
-                  setSalesData(weeklySales);
-                }}
-              >
-                1w
-              </TabsTrigger>
-              <TabsTrigger
-                className="px-2 py-1 text-xs font-medium"
-                value="monthly"
-                onClick={() => {
-                  setActiveChart("monthly");
-                  setSalesData(monthlySales);
-                }}
-              >
-                1m
-              </TabsTrigger>
-              <TabsTrigger
-                className="px-2 py-1 text-xs font-medium"
-                value="yearly"
-                onClick={() => {
-                  setActiveChart("daily");
-                  setSalesData(yearlySales);
-                }}
-              >
-                1y
-              </TabsTrigger>
-            </TabsList>
+            <Tabs
+              value={range}
+              onValueChange={(value) => setRange(value as AnalyticsRange)}
+            >
+              <TabsList className="flex w-[125px] relative h-8 mb-4">
+                <TabsTrigger
+                  className="px-2 py-1 text-xs font-medium"
+                  value="1d"
+                >
+                  1d
+                </TabsTrigger>
+                <TabsTrigger
+                  className="px-2 py-1 text-xs font-medium"
+                  value="1w"
+                >
+                  1w
+                </TabsTrigger>
+                <TabsTrigger
+                  className="px-2 py-1 text-xs font-medium"
+                  value="1m"
+                >
+                  1m
+                </TabsTrigger>
+                <TabsTrigger
+                  className="px-2 py-1 text-xs font-medium"
+                  value="1y"
+                >
+                  1y
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
           <div className="py-5 px-6">
-            <TabsList className="h-8">
-              <TabsTrigger
-                className="px-2 py-1"
-                onClick={() => {
-                  setSelectLineChart(false);
-                }}
-                value="bar"
+            <div className="inline-flex h-8 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
+              <button
+                type="button"
+                className={`inline-flex items-center justify-center rounded-sm px-2 py-1 ${
+                  !selectLineChart ? "bg-background text-foreground shadow-sm" : ""
+                }`}
+                onClick={() => setSelectLineChart(false)}
               >
                 <BarChart3 className="w-4 h-4" />
-              </TabsTrigger>
-              <TabsTrigger
-                className="px-2 py-1"
-                onClick={() => {
-                  setSelectLineChart(true);
-                }}
-                value="line"
+              </button>
+              <button
+                type="button"
+                className={`inline-flex items-center justify-center rounded-sm px-2 py-1 ${
+                  selectLineChart ? "bg-background text-foreground shadow-sm" : ""
+                }`}
+                onClick={() => setSelectLineChart(true)}
               >
                 <LineChart className="w-4 h-4" />
-              </TabsTrigger>
-            </TabsList>
+              </button>
+            </div>
           </div>
         </CardHeader>
         <CardContent className="px-2 sm:p-6">
@@ -255,8 +264,8 @@ const chartConfig = {
           )}
         </CardContent>
       </Card>
-    </Tabs>
+    </div>
   );
-}
+};
 
 export default SalesData;

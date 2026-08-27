@@ -13,7 +13,7 @@ export const useFetchVendorStore = (storeId: string, vendorId: string) => {
     queryFn:
       isLoggedIn && userType === "IS_VENDOR"
         ? async () => {
-            const response = await api.get(`/store/${storeId}`);
+            const response = await api.get(`/v1/stores/${storeId}/manage`);
             return response.data;
           }
         : skipToken,

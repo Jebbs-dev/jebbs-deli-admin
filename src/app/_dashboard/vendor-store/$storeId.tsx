@@ -3,8 +3,10 @@ import { useFetchVendorStore } from "@/modules/vendor-store/queries/fetch-vendor
 import useAuthStore from "@/state-store/auth";
 import { ArrowLeft } from "lucide-react";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { requireRoles } from "@/utils/require-roles";
 
 export const Route = createFileRoute("/_dashboard/vendor-store/$storeId")({
+  beforeLoad: requireRoles(["IS_VENDOR"]),
   component: VendorStoreInfo,
 });
 

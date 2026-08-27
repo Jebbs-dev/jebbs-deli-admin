@@ -1,10 +1,13 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
-import { TopProducts } from "../../data/top-products";
-import SortRatings from "../sort-ratings";
 
-export const columns: ColumnDef<TopProducts>[] = [
+export type AnalyticsTopProduct = {
+  rank: number;
+  name: string;
+  unitsSold: number;
+  orders: number;
+};
+
+export const columns: ColumnDef<AnalyticsTopProduct>[] = [
   {
     accessorKey: "rank",
     header: "Rank",
@@ -18,8 +21,7 @@ export const columns: ColumnDef<TopProducts>[] = [
     header: "Units Sold",
   },
   {
-    accessorKey: "rating",
-    header: "Rating",
-    cell: ({ row }) => <SortRatings data={row.original} />,
+    accessorKey: "orders",
+    header: "Orders",
   },
 ];

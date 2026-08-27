@@ -14,7 +14,7 @@ export const useFetchOrdersCount = () => {
     queryFn:
       isLoggedIn && userType === "IS_ADMIN"
         ? async () => {
-            const response = await api.get(`/orders/count`);
+            const response = await api.get(`/v1/orders/count`);
             return response.data;
           }
         : skipToken,

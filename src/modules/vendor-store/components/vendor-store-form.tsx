@@ -24,6 +24,7 @@ import { getChangedValues } from "@/utils/get-changed-values";
 import { FaSpinner } from "react-icons/fa";
 import { useUpdateStore } from "../mutations/update-store";
 import { useToast } from "@/hooks/use-toast";
+import StorePayoutSection from "./store-payout-section";
 
 interface VendorStoreProps {
   vendorStoreData?: Store;
@@ -461,6 +462,12 @@ const VendorStoreForm = ({ vendorStoreData }: VendorStoreProps) => {
           </Button>
         </form>
       </Form>
+
+      {vendorStoreData?.id && (
+        <div className="mt-8">
+          <StorePayoutSection store={vendorStoreData} />
+        </div>
+      )}
     </>
   );
 };

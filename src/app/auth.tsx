@@ -1,87 +1,94 @@
 import { useState } from "react";
 import { Image } from "@unpic/react";
 import { createFileRoute } from "@tanstack/react-router";
-import { FcGoogle } from "react-icons/fc";
-import { Separator } from "@/components/ui/separator";
-import AuthForm from "@/modules/auth/components/forms/AuthForm";
+import AuthForm, {
+  type AuthVariant,
+} from "@/modules/auth/components/forms/AuthForm";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
-function AuthPage() {
-  const [variant, setVariant] = useState("login");
+function Wordmark() {
+  return (
+    <p className="font-sans text-[1.375rem] font-bold leading-none tracking-tight text-foreground md:text-[1.625rem]">
+      deli<span className="text-primary">.</span>
+    </p>
+  );
+}
 
-  const toggleVariant = () => {
-    setVariant((currentVariant) =>
-      currentVariant === "login" ? "register" : "login"
-    );
-  };
+function AuthPage() {
+  const [variant, setVariant] = useState<AuthVariant>("login");
+  const isLogin = variant === "login";
 
   return (
-    <div className="w-full h-full md:h-screen bg-orange-50 dark:bg-primary/5  flex flex-col bg-cover md:grid md:grid-cols-2">
-      <div className="sm:h-[100vh] min-h-screen md:bg-opacity-70 text-sm flex items-center">
-        <h1 className="absolute top-3 left-[45%] mx-auto md:top-10 md:left-10 text-black dark:text-foreground text-2xl md:text-3xl">
-          deli<span className="text-orange-400">.</span>
-        </h1>
-        <div className="w-[80%] mx-auto flex flex-col space-y-2 xl:w-[60%] md:border-2 md:border-orange-400 md:rounded-md p-4 lg:p-10 mt-10 sm:mt-0">
-          <h1 className="text-2xl md:text-3xl font-semibold text-orange-400 text-center mb-3">
-            {variant === "login"
-              ? "Sign in to your account"
-              : "Create an Account"}
-          </h1>
-          <p className="text-sm md:text-base text-center text-neutral-600 dark:text-foreground font-light">
-            {variant === "login"
-              ? "Enter your email and password below to sign in to your account"
-              : "Enter your name, email and password below to create a vendor account"}
-          </p>
-          <div className="flex flex-col text-orange-400 py-3">
-            <AuthForm variant={variant} />
+    <div className="flex min-h-svh flex-col bg-background text-foreground lg:grid lg:h-svh lg:grid-cols-[minmax(20rem,32rem)_minmax(0,1fr)] lg:grid-rows-[auto_minmax(0,1fr)]">
+      <header className="flex items-center justify-between px-5 pt-5 pb-4 md:px-12 lg:col-start-1 lg:row-start-1 lg:px-16 lg:pt-8 lg:pb-0">
+        <Wordmark />
+        <span className="font-sans text-[11px] font-semibold tracking-wide text-muted-foreground md:hidden">
+          OPS
+        </span>
+      </header>
 
-            <div className="flex h-5 justify-center items-center text-sm my-5">
-              <div className="w-[25%] lg:w-[31%]">
-                <Separator orientation="horizontal" className="bg-orange-300" />
-              </div>
-              <div className="w-1/2">
-                <div className="text-xs text-center">OR CONTINUE WITH</div>
-              </div>
-              <div className="w-[25%] lg:w-[31%]">
-                <Separator orientation="horizontal" className="bg-orange-300" />
-              </div>
-            </div>
-
-            <div className="flex space-x-10 justify-center mb-7">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition border border-orange-400">
-                <FcGoogle size={32} />
-              </div>
-            </div>
-
-            <div className="flex justify-center items-center">
-              <p className="text-black dark:text-foreground ">
-                {variant === "login"
-                  ? "Don't have an account?"
-                  : "Have an account?"}{" "}
-                <span
-                  onClick={toggleVariant}
-                  className="underline text-orange-400 hover:text-neutral-600 dark:hover:text-orange-700 hover:cursor-pointer"
-                >
-                  {variant === "login"
-                    ? "Click to create a vendor account."
-                    : "Click to sign in"}
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="relative md:h-screen md:w-full hidden md:block">
+      <section
+        className="relative hidden h-72 overflow-hidden md:block lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:h-full"
+        aria-hidden="true"
+      >
         <Image
           src="/auth-bg.jpg"
-          alt="logo"
+          alt=""
           layout="fullWidth"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-transparent dark:bg-black/30 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-zinc-950/25 to-transparent dark:from-zinc-950/90 dark:via-zinc-950/45" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 p-8 lg:p-12">
+          <p className="text-[11px] font-medium tracking-wide text-zinc-200 dark:hidden">
+            LAGOS · OPS
+          </p>
+          <p className="hidden text-[11px] font-medium tracking-wide text-zinc-400 dark:block">
+            NIGHT SERVICE
+          </p>
+          <p className="max-w-[22ch] font-sans text-xl font-semibold leading-snug text-zinc-50 lg:text-[1.75rem] dark:hidden">
+            The kitchen ticket, on every order.
+          </p>
+          <p className="hidden max-w-[22ch] font-sans text-xl font-semibold leading-snug text-zinc-50 lg:text-[1.75rem] dark:block">
+            The board never really closes.
+          </p>
+        </div>
+      </section>
+
+      <div className="flex flex-1 flex-col justify-start px-5 pb-10 pt-4 md:px-12 md:pb-10 lg:col-start-1 lg:row-start-2 lg:justify-center lg:px-16 lg:pt-0 lg:pb-10">
+        <div className="mx-auto w-full max-w-[27rem] md:mx-0">
+          <h1 className="font-sans text-[1.75rem] font-semibold leading-tight tracking-tight text-foreground md:text-[2rem]">
+            {isLogin ? "Sign in to Deli ops" : "Open a vendor account"}
+          </h1>
+          <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
+            {isLogin
+              ? "Email and password. We’ll route you as admin, vendor, or rider."
+              : "For kitchens joining the Deli network — not a shopper signup."}
+          </p>
+
+          <div className="mt-8">
+            <AuthForm variant={variant} />
+          </div>
+
+          <p className="mt-6 text-sm text-muted-foreground">
+            {isLogin ? "Need a kitchen on Deli? " : "Already on the pass? "}
+            <Button
+              type="button"
+              variant="link"
+              className="h-auto p-0 text-sm font-semibold text-primary"
+              onClick={() =>
+                setVariant((current) =>
+                  current === "login" ? "register" : "login",
+                )
+              }
+            >
+              {isLogin ? "Create a vendor account" : "Sign in"}
+            </Button>
+          </p>
+        </div>
       </div>
     </div>
   );

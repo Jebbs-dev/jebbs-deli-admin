@@ -3,8 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import ProductForm from "@/modules/products/new/components/product-form";
 import { useFetchProductById } from "@/modules/products/queries/fetch-product-by-id";
 import useAuthStore from "@/state-store/auth";
+import { requireRoles } from "@/utils/require-roles";
 
 export const Route = createFileRoute("/_dashboard/products/$productId")({
+  beforeLoad: requireRoles(["IS_VENDOR"]),
   component: ProductPage,
 });
 

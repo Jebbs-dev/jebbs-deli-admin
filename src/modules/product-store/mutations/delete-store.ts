@@ -8,7 +8,7 @@ export const useDeleteStore = () => {
 
   return useMutation({
     mutationFn: async (storeId: string) => {
-      const response = await api.delete(`/store/${storeId}`);
+      const response = await api.delete(`/v1/stores/${storeId}`);
       return response.data;
     },
     onSuccess: () => {

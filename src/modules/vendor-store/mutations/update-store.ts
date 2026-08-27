@@ -9,7 +9,7 @@ export const useUpdateStore = (storeId: string) => {
 
   return useMutation({
     mutationFn: async (store: FormData) => {
-      const response = await api.patch(`/store/${storeId}`, store);
+      const response = await api.patch(`/v1/stores/${storeId}`, store);
       return response.data;
     },
     onSuccess: () => {

@@ -9,7 +9,7 @@ export const useFetchFilteredProducts = (params: ProductParams) => {
   return useQuery({
     queryKey: ["products", params],
     queryFn: async () => {
-      const response = await api.get("/products", { params });
+      const response = await api.get("/v1/products", { params });
       return response.data;
     },
     placeholderData: keepPreviousData,

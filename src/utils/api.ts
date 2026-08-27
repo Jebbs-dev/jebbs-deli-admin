@@ -6,6 +6,17 @@ import axios, {
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+const MUTATING_METHODS = new Set(["post", "put", "patch", "delete"]);
+
+const getCookie = (name: string): string | undefined => {
+  if (typeof document === "undefined") return undefined;
+  const match = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(`${name}=`));
+  if (!match) return undefined;
+  return decodeURIComponent(match.slice(name.length + 1));
+};
+
 const api: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
@@ -37,14 +48,41 @@ const skipRefreshEndpoints = [
   "/auth/login",
   "/auth/admin/login",
   "/auth/vendor/login",
+  "/auth/rider/login",
   "/auth/refresh",
+  "/v1/auth/refresh",
 ];
+
+function omitEmptyParams(params: unknown): unknown {
+  if (!params || typeof params !== "object" || Array.isArray(params)) {
+    return params;
+  }
+  const out: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(params as Record<string, unknown>)) {
+    if (value === "" || value === undefined || value === null) continue;
+    out[key] = value;
+  }
+  return out;
+}
 
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (config.data instanceof FormData) {
       delete config.headers["Content-Type"];
     }
+
+    const method = config.method?.toLowerCase();
+    if (method && MUTATING_METHODS.has(method)) {
+      const csrfToken = getCookie("csrf_token");
+      if (csrfToken) {
+        config.headers["X-CSRF-Token"] = csrfToken;
+      }
+    }
+
+    if (config.params && typeof config.params === "object") {
+      config.params = omitEmptyParams(config.params);
+    }
+
     return config;
   },
   (error) => Promise.reject(error)

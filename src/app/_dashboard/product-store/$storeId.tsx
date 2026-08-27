@@ -3,8 +3,13 @@ import { createFileRoute, useRouter } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import { ArrowLeft } from "lucide-react";
 import { useFetchStore } from "@/modules/vendor-store/queries/fetch-vendor-store";
+import StorePayoutSection from "@/modules/vendor-store/components/store-payout-section";
+import StoreWalletSection from "@/modules/settlement/components/store-wallet-section";
+import StorePaymentHistory from "@/modules/settlement/components/store-payment-history";
+import { requireRoles } from "@/utils/require-roles";
 
 export const Route = createFileRoute("/_dashboard/product-store/$storeId")({
+  beforeLoad: requireRoles(["IS_ADMIN"]),
   component: StoreInformationPage,
 });
 
@@ -156,6 +161,16 @@ function StoreInformationPage() {
           </div>
         </div>
       </section>
+
+      {vendorStoreData?.id && (
+        <div className="mt-8 space-y-6">
+          <div className="grid gap-4 md:grid-cols-2">
+            <StoreWalletSection storeId={String(vendorStoreData.id)} />
+            <StorePaymentHistory storeId={String(vendorStoreData.id)} />
+          </div>
+          <StorePayoutSection store={vendorStoreData} />
+        </div>
+      )}
     </div>
   );
 }

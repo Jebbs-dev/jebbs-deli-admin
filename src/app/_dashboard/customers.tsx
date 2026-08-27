@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import CustomerList from "@/modules/customers/components/customer-list";
+import { requireRoles } from "@/utils/require-roles";
 
 export const Route = createFileRoute("/_dashboard/customers")({
+  beforeLoad: requireRoles(["IS_ADMIN"]),
   component: CustomersPage,
 });
 

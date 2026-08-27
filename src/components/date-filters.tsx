@@ -8,9 +8,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { useNavigate } from "@tanstack/react-router";
-import useAuthStore from "@/state-store/auth";
 import { useQueryParamaters } from "@/state-store/use-query-params";
-import { useEffect, useState } from "react";
 
 import { formatDate } from "@/utils/format-date";
 import {
@@ -20,8 +18,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
-import { addDays, format } from "date-fns";
-import { DateRange } from "react-day-picker";
+import { format } from "date-fns";
 
 interface TableFilterProps {
   title: string;
@@ -37,12 +34,7 @@ const TableFilters = ({
   canAddNew,
 }: TableFilterProps) => {
 
-  const { dateFilter, setDateFilter, selectedFilter, setSelectedFilter, date, setDate, dateRange, setDateRange } = useQueryParamaters();
-  // const [date, setDate] = useState<Date>();
-  // const [dateRange, setDateRange] = useState<DateRange | undefined>({
-  //   from: new Date(),
-  //   to: addDays(new Date(), 20),
-  // });
+  const { setDateFilter, selectedFilter, setSelectedFilter, date, setDate, dateRange, setDateRange } = useQueryParamaters();
 
   const navigate = useNavigate();
 
@@ -50,53 +42,48 @@ const TableFilters = ({
     setSelectedFilter(value);
 
     const now = new Date();
+    const today = formatDate(
+      new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    ).toString();
+    const endDate = today;
 
-    let startDate: string;
-    let endDate = formatDate(now).toString(); // Today's date
+    let startDate = "";
 
-    // Map the selected filter to date ranges
     switch (value) {
       case "today":
-        startDate = formatDate(
-          new Date(now.getFullYear(), now.getMonth(), now.getDate())
-        ).toString();
-
+        startDate = today;
         break;
       case "last_24_hours":
         startDate = formatDate(
           new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1)
         ).toString();
-
         break;
-      case "this_week":
+      case "this_week": {
+        const mondayOffset = (now.getDay() + 6) % 7;
         startDate = formatDate(
-          new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
+          new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() - mondayOffset
+          )
         ).toString();
-
         break;
+      }
       case "this_month":
         startDate = formatDate(
-          new Date(now.getFullYear(), now.getMonth() - 1, now.getDate())
+          new Date(now.getFullYear(), now.getMonth(), 1)
         ).toString();
         break;
       case "this_year":
-        startDate = formatDate(
-          new Date(now.getFullYear() - 1, now.getMonth(), now.getDate())
-        ).toString();
+        startDate = formatDate(new Date(now.getFullYear(), 0, 1)).toString();
         break;
       default:
         startDate = "";
     }
 
-    // If the value is "custom", don't make the API call here
-    if (value === "custom") return;
+    if (value === "custom" || value === "single") return;
 
-    if (value === "single") return;
-
-    dateFilter.startDate = startDate;
-    dateFilter.endDate = endDate;
-
-    setDateFilter(dateFilter);
+    setDateFilter({ startDate, endDate });
   };
 
   return (
@@ -130,9 +117,7 @@ const TableFilters = ({
               <Button
                 size="icon"
                 onClick={() => {
-                  dateFilter.startDate = "";
-                  dateFilter.endDate = "";
-                  setDateFilter(dateFilter);
+                  setDateFilter({ startDate: "", endDate: "" });
                   setSelectedFilter("");
                   setDate(undefined);
                 }}
@@ -143,7 +128,7 @@ const TableFilters = ({
 
             {canAddNew && (
               <Button
-                onClick={() => navigate({ to: "/products/new" })}
+                onClick={() => navigate({ to: "/products" })}
                 className="lg:hidden block"
               >
                 <span className="">
@@ -173,14 +158,16 @@ const TableFilters = ({
                   selected={date}
                   onSelect={(date) => {
                     setDate(date);
+                    if (!date) return;
                     const selectedDate = new Date(
-                      date!.getFullYear(),
-                      date!.getMonth(),
-                      date!.getDate()
+                      date.getFullYear(),
+                      date.getMonth(),
+                      date.getDate()
                     );
-                    dateFilter.startDate = formatDate(selectedDate).toString();
-                    // dateFilter.endDate = formatDate(selectedDate).toString();
-                    setDateFilter(dateFilter);
+                    setDateFilter({
+                      startDate: formatDate(selectedDate).toString(),
+                      endDate: formatDate(selectedDate).toString(),
+                    });
                   }}
                   initialFocus
                 />
@@ -220,23 +207,23 @@ const TableFilters = ({
                   numberOfMonths={2}
                   defaultMonth={dateRange?.from}
                   selected={dateRange}
-                  onSelect={(dateRange) => {
-                    setDateRange(dateRange);
-
-                    console.log(dateRange);
+                  onSelect={(nextRange) => {
+                    setDateRange(nextRange);
+                    if (!nextRange?.from || !nextRange.to) return;
                     const selectedFrom = new Date(
-                      dateRange!.from!.getFullYear(),
-                      dateRange!.from!.getMonth(),
-                      dateRange!.from!.getDate()
+                      nextRange.from.getFullYear(),
+                      nextRange.from.getMonth(),
+                      nextRange.from.getDate()
                     );
                     const selectedTo = new Date(
-                      dateRange!.to!.getFullYear(),
-                      dateRange!.to!.getMonth(),
-                      dateRange!.to!.getDate()
+                      nextRange.to.getFullYear(),
+                      nextRange.to.getMonth(),
+                      nextRange.to.getDate()
                     );
-                    dateFilter.startDate = formatDate(selectedFrom).toString();
-                    dateFilter.endDate = formatDate(selectedTo).toString();
-                    // setDateFilter(dateFilter);
+                    setDateFilter({
+                      startDate: formatDate(selectedFrom).toString(),
+                      endDate: formatDate(selectedTo).toString(),
+                    });
                   }}
                 />
               </PopoverContent>

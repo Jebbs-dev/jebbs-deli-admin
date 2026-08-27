@@ -10,9 +10,9 @@ export const useFetchProductById = (productId: string, storeId: string) => {
     queryKey: ["products", productId],
     queryFn: isLoggedIn
       ? async () => {
-          const response = await api.get(
-            `/products/${productId}/store/${storeId}`
-          );
+            const response = await api.get(
+              `/v1/stores/${storeId}/products/${productId}`
+            );
           return response.data;
         }
       : skipToken,

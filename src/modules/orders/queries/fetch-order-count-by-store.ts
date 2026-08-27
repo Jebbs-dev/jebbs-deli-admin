@@ -13,7 +13,7 @@ export const useFetchStoreOrdersCount = (storeId: string) => {
     queryFn:
       isLoggedIn && userType === "IS_VENDOR"
         ? async () => {
-            const response = await api.get(`/orders/store/${storeId}/count`);
+            const response = await api.get(`/v1/stores/${storeId}/orders/count`);
             return response.data;
           }
         : skipToken,

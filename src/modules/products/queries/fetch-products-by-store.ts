@@ -5,7 +5,7 @@ export const useFetchProductByStore = (storeId: string) => {
   return useQuery({
     queryKey: ["products", storeId],
     queryFn: async () => {
-      const response = await api.get(`/products/store/${storeId}`);
+      const response = await api.get(`/v1/stores/${storeId}/products`);
       return response.data;
     },
   });

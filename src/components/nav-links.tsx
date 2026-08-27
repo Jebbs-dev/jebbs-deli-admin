@@ -1,18 +1,13 @@
 import {
-  LayoutDashboard,
   LineChart,
-  Sandwich,
   ShoppingBag,
   Users,
-  Bell,
-  CircleUser,
   Home,
-  Menu,
   Package,
-  Package2,
-  Search,
   ShoppingCart,
   ShoppingBasket,
+  Bike,
+  History,
 } from "lucide-react";
 
 import { Link, useRouterState } from "@tanstack/react-router";
@@ -22,6 +17,8 @@ import useUserRole from "@/hooks/useUserRole";
 const links = [
   { name: "Dashboard", href: "/", icon: Home },
   { name: "Analytics", href: "/analytics", icon: LineChart },
+  { name: "Deliveries", href: "/deliveries", icon: Bike },
+  { name: "History", href: "/deliveries/history", icon: History },
   { name: "Products", href: "/products", icon: Package },
   { name: "VendorStore", href: "/vendor-store", icon: ShoppingBag },
   { name: "Orders", href: "/orders", icon: ShoppingCart },
@@ -35,19 +32,28 @@ const NavLinks = () => {
   const userType = useUserRole();
 
   const filteredLinks = links.filter((link) => {
+    if (userType === "IS_RIDER") {
+      return (
+        link.name === "Dashboard" ||
+        link.name === "Deliveries" ||
+        link.name === "History"
+      );
+    }
     if (userType === "IS_VENDOR") {
       return (
-        link.name !== "Analytics" &&
         link.name !== "Customers" &&
         link.name !== "Vendors" &&
-        link.name !== "ProductStore"
+        link.name !== "ProductStore" &&
+        link.name !== "Deliveries" &&
+        link.name !== "History"
       );
     }
     if (userType === "IS_ADMIN") {
       return (
         link.name !== "Products" &&
         link.name !== "VendorStore" &&
-        link.name !== "Analytics"
+        link.name !== "Deliveries" &&
+        link.name !== "History"
       );
     }
     return true;
@@ -57,6 +63,9 @@ const NavLinks = () => {
     <>
       {filteredLinks.map((link) => {
         const LinkIcon = link.icon;
+        const isActive =
+          pathname === link.href ||
+          (link.href !== "/" && pathname.startsWith(link.href));
         return (
           <Link
             key={link.name}
@@ -70,7 +79,7 @@ const NavLinks = () => {
                 "flex justify-center md:justify-start my-auto md:my-0 px-2 md:px-3 py-2 rounded-lg w-full",
                 {
                   "border-opacity-100 font-medium bg-orange-600/20 rounded-lg":
-                    pathname === link.href,
+                    isActive,
                 }
               )}
             >

@@ -12,7 +12,7 @@ export const useFetchProductsCountByStore = (storeId: string) => {
     queryKey: ["products"],
     queryFn: isLoggedIn && userType === "IS_VENDOR"
     ? async () => {
-      const response = await api.get(`/products/store/${storeId}/count`);
+      const response = await api.get(`/v1/stores/${storeId}/products/count`);
       return response.data;
     }: skipToken,
     placeholderData: keepPreviousData,

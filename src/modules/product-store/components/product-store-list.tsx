@@ -24,9 +24,9 @@ const ProductStoreList = () => {
 
   const { data: stores, isLoading } = useFetchFilteredStores({
     ...backendPagination,
-    search: debouncedQuery,
-    startDate: dateFilter.startDate,
-    endDate: dateFilter.endDate,
+    q: debouncedQuery,
+    createdFrom: dateFilter.startDate,
+    createdTo: dateFilter.endDate,
   });
 
 
@@ -36,7 +36,7 @@ const ProductStoreList = () => {
 
       <DataTable
         columns={ProductStoreListColumns}
-        data={stores?.stores || []}
+        data={stores?.items || []}
         total={stores?.total}
         limit={stores?.limit}
         offset={stores?.offset}

@@ -42,9 +42,9 @@ const ProductList = () => {
     String(user?.store?.id),
     {
       ...backendPagination,
-      search: debouncedQuery,
-      startDate: dateFilter.startDate,
-      endDate: dateFilter.endDate,
+      q: debouncedQuery,
+      createdFrom: dateFilter.startDate,
+      createdTo: dateFilter.endDate,
     }
   );
 
@@ -62,7 +62,7 @@ const ProductList = () => {
 
       <DataTable
         columns={ProductListColumns}
-        data={productsByStore?.products || []}
+        data={productsByStore?.items || []}
         total={productsByStore?.total}
         limit={productsByStore?.limit}
         offset={productsByStore?.offset}

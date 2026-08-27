@@ -14,7 +14,7 @@ export const useFetchFilteredOrders = (params?: OrderParams) => {
     queryFn:
       isLoggedIn && userType === "IS_ADMIN"
         ? async () => {
-            const response = await api.get(`/orders`, { params });
+            const response = await api.get(`/v1/orders`, { params });
             return response.data;
           }
         : skipToken,

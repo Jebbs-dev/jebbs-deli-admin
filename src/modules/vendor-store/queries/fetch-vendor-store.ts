@@ -11,9 +11,11 @@ export const useFetchStore = (storeId: string) => {
   return useQuery({
     queryKey: ["vendor-store", storeId],
     queryFn:
-      isLoggedIn && userType === "IS_VENDOR"
+      isLoggedIn &&
+      storeId &&
+      (userType === "IS_VENDOR" || userType === "IS_ADMIN")
         ? async () => {
-            const response = await api.get(`/store/${storeId}`);
+            const response = await api.get(`/v1/stores/${storeId}/manage`);
             return response.data;
           }
         : skipToken,

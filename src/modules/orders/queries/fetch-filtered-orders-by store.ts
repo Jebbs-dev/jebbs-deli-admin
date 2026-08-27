@@ -27,7 +27,7 @@ export const useFetchFilteredOrderByStore = (
     queryFn:
       isLoggedIn && userType === "IS_VENDOR"
         ? async () => {
-            const response = await api.get(`/orders/store/${storeId}`, {
+            const response = await api.get(`/v1/stores/${storeId}/orders`, {
               params,
             });
             return response.data;

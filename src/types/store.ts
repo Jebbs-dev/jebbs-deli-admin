@@ -6,6 +6,8 @@ export type StoreCreate = {
   address: string;
 };
 
+export type StorePayoutStatus = "pending" | "verified" | "disabled";
+
 export type Store = StoreCreate & {
   id: string;
   createdAt: string;
@@ -22,4 +24,17 @@ export type Store = StoreCreate & {
   totalReviews?: number;
   tags?: string[];
   products: Product[];
+  commissionPercent?: number | string;
+  bagFeeEnabled?: boolean;
+  bagFeeAmount?: number | string;
+  bagCommissionable?: boolean;
+  surgeEnabled?: boolean;
+  surgeType?: "flat" | "percent" | string;
+  surgeValue?: number | string;
+  bankCode?: string | null;
+  bankName?: string | null;
+  accountNumber?: string | null;
+  accountName?: string | null;
+  paystackSubaccountCode?: string | null;
+  paystackSubaccountStatus?: StorePayoutStatus;
 };
